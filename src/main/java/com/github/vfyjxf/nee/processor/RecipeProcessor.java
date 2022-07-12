@@ -74,6 +74,10 @@ public class RecipeProcessor {
             NotEnoughEnergistics.logger.info("Found GT++, install GT++ support");
             recipeProcessors.add(new GTPPRecipeProcessor());
         }
+        if (Loader.isModLoaded("GoodGenerator")) {
+            NotEnoughEnergistics.logger.info("Found Good Generator, install Good Generator support");
+            recipeProcessors.add(new GoodGeneratorRecipeProcessor());
+        }
 
         NotEnoughEnergistics.logger.info("-----Not Enough Energistics Init  Finished-----");
     }
