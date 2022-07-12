@@ -2,9 +2,8 @@ package com.github.vfyjxf.nee.processor;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import javax.annotation.Nonnull;
 import java.util.*;
+import javax.annotation.Nonnull;
 
 /**
  * @author vfyjxf
@@ -43,5 +42,4 @@ public class VanillaRecipeProcessor implements IRecipeProcessor {
         }
         return recipeOutput;
     }
-
 }

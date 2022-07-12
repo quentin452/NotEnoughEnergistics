@@ -3,9 +3,8 @@ package com.github.vfyjxf.nee.processor;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
 import com.djgiannuzz.thaumcraftneiplugin.items.ItemAspect;
-
-import javax.annotation.Nonnull;
 import java.util.*;
+import javax.annotation.Nonnull;
 
 /**
  * @author vfyjxf
@@ -16,9 +15,11 @@ public class TCNEIPluginRecipeProcessor implements IRecipeProcessor {
     @Override
     public Set<String> getAllOverlayIdentifier() {
         return new HashSet<>(Arrays.asList(
-                "arcaneshapedrecipes", "arcaneshapelessrecipes", "aspectsRecipe",
-                "cruciblerecipe", "infusionCrafting"
-        ));
+                "arcaneshapedrecipes",
+                "arcaneshapelessrecipes",
+                "aspectsRecipe",
+                "cruciblerecipe",
+                "infusionCrafting"));
     }
 
     @Nonnull

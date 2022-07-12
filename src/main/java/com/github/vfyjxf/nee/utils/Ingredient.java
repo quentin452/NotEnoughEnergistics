@@ -64,5 +64,4 @@ public class Ingredient {
             currentCount = requireCount;
         }
     }
-
 }

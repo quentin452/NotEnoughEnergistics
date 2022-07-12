@@ -6,7 +6,6 @@ import appeng.client.gui.implementations.GuiPatternTerm;
 import appeng.container.implementations.ContainerPatternTerm;
 import appeng.helpers.IContainerCraftingPacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -53,17 +52,18 @@ public class GuiUtils {
     public static boolean isGuiWirelessCrafting(GuiScreen gui) {
 
         try {
-            Class<?> guiWirelessCraftingClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal");
+            Class<?> guiWirelessCraftingClass =
+                    Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal");
             return guiWirelessCraftingClass.isInstance(gui);
         } catch (ClassNotFoundException e) {
             return false;
         }
-
     }
 
     public static boolean isWirelessCraftingTermContainer(Container container) {
         try {
-            Class<?> wirelessCraftingTermContainerClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal");
+            Class<?> wirelessCraftingTermContainerClass = Class.forName(
+                    "net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal");
             return wirelessCraftingTermContainerClass.isInstance(container);
         } catch (ClassNotFoundException e) {
             return false;
@@ -72,7 +72,8 @@ public class GuiUtils {
 
     public static boolean isWirelessGuiCraftConfirm(GuiScreen gui) {
         try {
-            Class<?> wirelessGuiCraftConfirmClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm");
+            Class<?> wirelessGuiCraftConfirmClass =
+                    Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm");
             return wirelessGuiCraftConfirmClass.isInstance(gui);
         } catch (ClassNotFoundException e) {
             return false;
@@ -81,7 +82,8 @@ public class GuiUtils {
 
     public static boolean isContainerWirelessCraftingConfirm(Container container) {
         try {
-            Class<?> wirelessCraftingConfirmClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm");
+            Class<?> wirelessCraftingConfirmClass =
+                    Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm");
             return wirelessCraftingConfirmClass.isInstance(container);
         } catch (ClassNotFoundException e) {
             return false;
@@ -90,7 +92,8 @@ public class GuiUtils {
 
     public static boolean isWCTContainerCraftingConfirm(Container container) {
         try {
-            Class<?> wctCraftingConfirmClass = Class.forName("com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm");
+            Class<?> wctCraftingConfirmClass =
+                    Class.forName("com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm");
             return wctCraftingConfirmClass.isInstance(container);
         } catch (ClassNotFoundException e) {
             return false;
@@ -99,7 +102,8 @@ public class GuiUtils {
 
     public static boolean isWirelessTerminalGuiObject(Object guiObj) {
         try {
-            Class<?> wirelessTerminalGuiObjClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
+            Class<?> wirelessTerminalGuiObjClass =
+                    Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
             return wirelessTerminalGuiObjClass.isInstance(guiObj);
         } catch (ClassNotFoundException e) {
             return false;
@@ -117,5 +121,4 @@ public class GuiUtils {
     public static boolean isGuiCraftConfirm(GuiScreen gui) {
         return gui instanceof GuiCraftConfirm || isWirelessGuiCraftConfirm(gui);
     }
-
 }

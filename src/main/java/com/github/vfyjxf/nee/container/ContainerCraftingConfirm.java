@@ -34,7 +34,6 @@ public class ContainerCraftingConfirm extends ContainerCraftConfirm {
         }
     }
 
-
     public void setTile(TilePatternInterface tile) {
         this.tile = tile;
     }

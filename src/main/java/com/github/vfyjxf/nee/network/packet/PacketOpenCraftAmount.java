@@ -1,5 +1,9 @@
 package com.github.vfyjxf.nee.network.packet;
 
+import static com.github.vfyjxf.nee.nei.NEECraftingHandler.OUTPUT_KEY;
+import static com.github.vfyjxf.nee.network.NEEGuiHandler.CRAFTING_AMOUNT_ID;
+import static com.github.vfyjxf.nee.network.NEEGuiHandler.CRAFTING_AMOUNT_WIRELESS_ID;
+
 import appeng.container.ContainerOpenContext;
 import appeng.container.implementations.ContainerCraftingTerm;
 import com.github.vfyjxf.nee.container.ContainerCraftingAmount;
@@ -16,17 +20,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-import static com.github.vfyjxf.nee.nei.NEECraftingHandler.OUTPUT_KEY;
-import static com.github.vfyjxf.nee.network.NEEGuiHandler.CRAFTING_AMOUNT_ID;
-import static com.github.vfyjxf.nee.network.NEEGuiHandler.CRAFTING_AMOUNT_WIRELESS_ID;
-
-public class PacketOpenCraftAmount implements IMessage{
+public class PacketOpenCraftAmount implements IMessage {
 
     private NBTTagCompound recipe;
 
-    public PacketOpenCraftAmount() {
-
-    }
+    public PacketOpenCraftAmount() {}
 
     public PacketOpenCraftAmount(NBTTagCompound recipe) {
         this.recipe = recipe;
@@ -42,7 +40,7 @@ public class PacketOpenCraftAmount implements IMessage{
         ByteBufUtils.writeTag(buf, this.recipe);
     }
 
-    public static final class Handler implements IMessageHandler<PacketOpenCraftAmount, IMessage>{
+    public static final class Handler implements IMessageHandler<PacketOpenCraftAmount, IMessage> {
         @Override
         public IMessage onMessage(PacketOpenCraftAmount message, MessageContext ctx) {
             EntityPlayerMP player = ctx.getServerHandler().playerEntity;
@@ -86,7 +84,5 @@ public class PacketOpenCraftAmount implements IMessage{
             }
             return null;
         }
-
     }
-
 }

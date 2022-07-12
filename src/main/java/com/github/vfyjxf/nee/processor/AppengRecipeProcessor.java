@@ -2,17 +2,14 @@ package com.github.vfyjxf.nee.processor;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import javax.annotation.Nonnull;
 import java.util.*;
+import javax.annotation.Nonnull;
 
 public class AppengRecipeProcessor implements IRecipeProcessor {
     @Nonnull
     @Override
     public Set<String> getAllOverlayIdentifier() {
-        return new HashSet<>(Arrays.asList(
-                "inscriber", "grindstone"
-        ));
+        return new HashSet<>(Arrays.asList("inscriber", "grindstone"));
     }
 
     @Nonnull

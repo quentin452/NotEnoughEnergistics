@@ -39,6 +39,9 @@ import appeng.util.inv.IInventoryDestination;
 import appeng.util.inv.WrapperInvSlot;
 import com.google.common.collect.ImmutableSet;
 import cpw.mods.fml.relauncher.ReflectionHelper;
+import java.util.*;
+import java.util.stream.IntStream;
+import javax.annotation.Nonnull;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -48,15 +51,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import javax.annotation.Nonnull;
-import java.util.*;
-import java.util.stream.IntStream;
-
-
 /**
  * A ME interface for storing temporary patterns.
  */
-public class TilePatternInterface extends AENetworkInvTile implements IGridTickable, ICraftingProvider, IInventoryDestination {
+public class TilePatternInterface extends AENetworkInvTile
+        implements IGridTickable, ICraftingProvider, IInventoryDestination {
 
     private final int[] sides = {0, 1, 2, 3, 4, 5, 6, 7, 8};
     private final AppEngInternalInventory gridInv;
@@ -70,7 +69,7 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
     private final boolean[] workStarted = new boolean[9];
 
     public TilePatternInterface() {
-        this.gridInv = new AppEngInternalInventory(this, 9 + 1 );
+        this.gridInv = new AppEngInternalInventory(this, 9 + 1);
         this.gridInv.setMaxStackSize(1);
         this.patterns = new AppEngInternalInventory(this, 9);
         this.ejectInv = new AppEngInternalInventory(this, 9);
@@ -94,7 +93,10 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
     private void notifyNeighbors() {
         if (this.getProxy().isActive()) {
             try {
-                this.getProxy().getGrid().postEvent(new MENetworkCraftingPatternChange(this, this.getProxy().getNode()));
+                this.getProxy()
+                        .getGrid()
+                        .postEvent(new MENetworkCraftingPatternChange(
+                                this, this.getProxy().getNode()));
                 this.getProxy().getTick().wakeDevice(this.getProxy().getNode());
             } catch (GridAccessException e) {
                 // :P
@@ -131,7 +133,6 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         if (hasWorks()) {
             return TickRateModulation.URGENT;
         }
-
 
         return TickRateModulation.SLEEP;
     }
@@ -171,7 +172,8 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
                 for (int i = 0; i < patterns.getSizeInventory(); i++) {
                     ItemStack stack = patterns.getStackInSlot(i);
                     if (stack != null && stack.getItem() instanceof ICraftingPatternItem) {
-                        ICraftingPatternDetails pattern = ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
+                        ICraftingPatternDetails pattern =
+                                ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
                         if (pattern != null && pattern.isCraftable()) {
                             craftingList.add(pattern);
                         }
@@ -186,10 +188,14 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
 
     @Override
     public boolean pushPattern(ICraftingPatternDetails patternDetails, InventoryCrafting table) {
-        if (!isBusy() && this.getProxy().isActive() && craftingList.contains(patternDetails) && !this.hasItemsToPush()) {
+        if (!isBusy()
+                && this.getProxy().isActive()
+                && craftingList.contains(patternDetails)
+                && !this.hasItemsToPush()) {
             final EnumSet<ForgeDirection> possibleDirections = EnumSet.complementOf(EnumSet.of(ForgeDirection.UNKNOWN));
             for (final ForgeDirection direction : possibleDirections) {
-                final TileEntity te = worldObj.getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+                final TileEntity te = worldObj.getTileEntity(
+                        xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
 
                 if (te instanceof IInterfaceHost) {
                     try {
@@ -234,7 +240,6 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         return false;
     }
 
-
     @Override
     public boolean isBusy() {
         return hasItemsToPush();
@@ -270,7 +275,6 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         return new DimensionalCoord(this);
     }
 
-
     @Override
     public AECableType getCableConnectionType(ForgeDirection dir) {
         return AECableType.SMART;
@@ -284,7 +288,10 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         }
 
         try {
-            final IAEItemStack out = this.getProxy().getStorage().getItemInventory().injectItems(AEApi.instance().storage().createItemStack(stack), Actionable.SIMULATE, this.source);
+            final IAEItemStack out = this.getProxy()
+                    .getStorage()
+                    .getItemInventory()
+                    .injectItems(AEApi.instance().storage().createItemStack(stack), Actionable.SIMULATE, this.source);
             if (out == null) {
                 return true;
             }
@@ -292,8 +299,6 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         } catch (GridAccessException e) {
             return false;
         }
-
-
     }
 
     @TileEvent(TileEventType.WORLD_NBT_WRITE)
@@ -344,16 +349,16 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
             ItemStack stack = patterns.getStackInSlot(i);
 
             if (stack != null && stack.getItem() instanceof ICraftingPatternItem) {
-                ICraftingPatternDetails pattern = ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
+                ICraftingPatternDetails pattern =
+                        ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
                 if (result.isItemEqual(pattern.getOutputs()[0].getItemStack())) {
                     return false;
                 }
             }
-
         }
 
-
-        return IntStream.range(0, this.patterns.getSizeInventory()).anyMatch(slot -> patterns.getStackInSlot(slot) == null);
+        return IntStream.range(0, this.patterns.getSizeInventory())
+                .anyMatch(slot -> patterns.getStackInSlot(slot) == null);
     }
 
     public int putPattern(ItemStack pattern) {
@@ -403,7 +408,10 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         }
 
         try {
-            this.getProxy().getGrid().postEvent(new MENetworkCraftingPatternChange(this, this.getProxy().getNode()));
+            this.getProxy()
+                    .getGrid()
+                    .postEvent(new MENetworkCraftingPatternChange(
+                            this, this.getProxy().getNode()));
         } catch (final GridAccessException e) {
             // :P
         }
@@ -420,7 +428,8 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
                 for (ICraftingCPU cpu : cpuSet) {
                     if (cpu instanceof CraftingCPUCluster) {
                         CraftingCPUCluster cluster = (CraftingCPUCluster) cpu;
-                        final IItemList<IAEItemStack> pendingList = AEApi.instance().storage().createItemList();
+                        final IItemList<IAEItemStack> pendingList =
+                                AEApi.instance().storage().createItemList();
                         cluster.getListOfItem(pendingList, CraftingItemList.PENDING);
                         for (IAEItemStack pendingStack : pendingList) {
                             if (pendingStack.isSameType(result)) {
@@ -494,13 +503,13 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
             return;
         }
 
-
         final Iterator<ItemStack> i = this.waitingToSend.iterator();
         while (i.hasNext()) {
             ItemStack whatToSend = i.next();
 
             for (final ForgeDirection s : possibleDirections) {
-                final TileEntity te = worldObj.getTileEntity(this.xCoord + s.offsetX, this.yCoord + s.offsetY, this.zCoord + s.offsetZ);
+                final TileEntity te = worldObj.getTileEntity(
+                        this.xCoord + s.offsetX, this.yCoord + s.offsetY, this.zCoord + s.offsetZ);
                 if (te == null) {
                     continue;
                 }
@@ -553,7 +562,8 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
                 if (canExtract != null && canExtract.stackSize == itemCount) {
 
                     try {
-                        final IMEMonitor<IAEItemStack> inv = this.getProxy().getStorage().getItemInventory();
+                        final IMEMonitor<IAEItemStack> inv =
+                                this.getProxy().getStorage().getItemInventory();
                         final IEnergyGrid energy = this.getProxy().getEnergy();
                         final IAEItemStack aeStack = AEApi.instance().storage().createItemStack(stack);
                         if (aeStack != null) {
@@ -566,18 +576,17 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
                             if (itemCount != 0) {
                                 final ItemStack removed = adaptor.removeItems(itemCount, null, null);
                                 if (removed == null) {
-                                    throw new IllegalStateException("bad attempt at managing inventory. ( removeItems )");
+                                    throw new IllegalStateException(
+                                            "bad attempt at managing inventory. ( removeItems )");
                                 } else if (removed.stackSize != itemCount) {
-                                    throw new IllegalStateException("bad attempt at managing inventory. ( removeItems )");
+                                    throw new IllegalStateException(
+                                            "bad attempt at managing inventory. ( removeItems )");
                                 }
-
                             }
-
                         }
                     } catch (GridAccessException e) {
                         // :P
                     }
-
                 }
             }
         }
@@ -603,13 +612,13 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         for (int i = 0; i < patterns.getSizeInventory(); i++) {
             ItemStack stack = patterns.getStackInSlot(i);
             if (stack != null && stack.getItem() instanceof ICraftingPatternItem) {
-                ICraftingPatternDetails currentPattern = ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
+                ICraftingPatternDetails currentPattern =
+                        ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
                 if (currentPattern != null && currentPattern.equals(pattern)) {
                     workStarted[i] = true;
                 }
             }
         }
-
     }
 
     private boolean hasWorkFinished() {
@@ -617,16 +626,18 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         for (int i = 0; i < patterns.getSizeInventory(); i++) {
             ItemStack stack = patterns.getStackInSlot(i);
             if (stack != null && stack.getItem() instanceof ICraftingPatternItem) {
-                ICraftingPatternDetails currentPattern = ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
+                ICraftingPatternDetails currentPattern =
+                        ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
 
                 if (currentPattern != null) {
-                    IAEItemStack what = currentPattern.getOutputs().length > 0 ? currentPattern.getOutputs()[0] : null;
+                    IAEItemStack what = currentPattern.getOutputs().length > 0
+                            ? currentPattern.getOutputs()[0]
+                            : null;
                     if (isNotRequesting(what) && workStarted[i]) {
                         return true;
                     }
                 }
             }
-
         }
 
         return false;
@@ -643,7 +654,6 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
                 updateCraftingList();
             }
         }
-
     }
 
     private boolean isNotRequesting(IAEItemStack stack) {
@@ -656,7 +666,8 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
             final ICraftingGrid cg = this.getProxy().getCrafting();
             final ImmutableSet<ICraftingCPU> cpuSet = cg.getCpus();
 
-            final IItemList<IAEItemStack> pendingList = AEApi.instance().storage().createItemList();
+            final IItemList<IAEItemStack> pendingList =
+                    AEApi.instance().storage().createItemList();
 
             for (ICraftingCPU cpu : cpuSet) {
                 if (cpu instanceof CraftingCPUCluster) {
@@ -682,7 +693,8 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
 
         ItemStack stack = patterns.getStackInSlot(pattern);
         if (stack != null && stack.getItem() instanceof ICraftingPatternItem) {
-            ICraftingPatternDetails currentPattern = ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
+            ICraftingPatternDetails currentPattern =
+                    ((ICraftingPatternItem) stack.getItem()).getPatternForItem(stack, worldObj);
             if (currentPattern != null) {
                 return currentPattern.getOutputs().length > 0 ? currentPattern.getOutputs()[0] : null;
             }
@@ -696,7 +708,6 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
         this.notifyNeighbors();
     }
 
-
     private boolean sameGrid(final IGrid grid) throws GridAccessException {
         return grid == this.getProxy().getGrid();
     }
@@ -704,5 +715,4 @@ public class TilePatternInterface extends AENetworkInvTile implements IGridTicka
     private IGrid getGridFromInterface(DualityInterface iface) {
         return ReflectionHelper.getPrivateValue(DualityInterface.class, iface, "gridProxy");
     }
-
 }

@@ -1,5 +1,7 @@
 package com.github.vfyjxf.nee.network.packet;
 
+import static com.github.vfyjxf.nee.nei.NEECraftingHandler.OUTPUT_KEY;
+
 import appeng.api.networking.IGrid;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.ISecurityGrid;
@@ -12,30 +14,24 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
+import javax.annotation.Nonnull;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import javax.annotation.Nonnull;
-
-import static com.github.vfyjxf.nee.nei.NEECraftingHandler.OUTPUT_KEY;
-
-
-public class PacketNEIPatternRecipe implements IMessage{
+public class PacketNEIPatternRecipe implements IMessage {
 
     NBTTagCompound input;
     NBTTagCompound output;
 
-    public PacketNEIPatternRecipe() {
-    }
+    public PacketNEIPatternRecipe() {}
 
     public PacketNEIPatternRecipe(@Nonnull NBTTagCompound input, NBTTagCompound output) {
         this.input = input;
         this.output = output;
     }
-
 
     @Override
     public void fromBytes(ByteBuf buf) {
@@ -73,13 +69,11 @@ public class PacketNEIPatternRecipe implements IMessage{
             }
             return null;
         }
-
     }
 
     private void craftingTableRecipeHandler(ContainerPatternTerm container, PacketNEIPatternRecipe message) {
         ItemStack[] recipeInput = new ItemStack[9];
         NBTTagCompound currentStack;
-
 
         for (int i = 0; i < recipeInput.length; i++) {
             currentStack = (NBTTagCompound) message.input.getTag("#" + i);
@@ -109,16 +103,13 @@ public class PacketNEIPatternRecipe implements IMessage{
                 }
                 container.onCraftMatrixChanged(craftMatrix);
             }
-
         }
-
     }
 
     private void processRecipeHandler(ContainerPatternTerm container, PacketNEIPatternRecipe message) {
 
         ItemStack[] recipeInput = new ItemStack[9];
         ItemStack[] recipeOutput = new ItemStack[3];
-
 
         for (int i = 0; i < recipeInput.length; i++) {
             NBTTagCompound currentStack = (NBTTagCompound) message.input.getTag("#" + i);
@@ -169,7 +160,6 @@ public class PacketNEIPatternRecipe implements IMessage{
         ItemStack[] recipeInput = new ItemStack[16];
         ItemStack[] recipeOutput = new ItemStack[4];
 
-
         for (int i = 0; i < recipeInput.length; i++) {
             NBTTagCompound currentStack = (NBTTagCompound) message.input.getTag("#" + i);
             recipeInput[i] = currentStack == null ? null : ItemStack.loadItemStackFromNBT(currentStack);
@@ -213,6 +203,4 @@ public class PacketNEIPatternRecipe implements IMessage{
             }
         }
     }
-
-
 }

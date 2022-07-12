@@ -1,5 +1,7 @@
 package com.github.vfyjxf.nee.asm;
 
+import static com.github.vfyjxf.nee.nei.NEECraftingHandler.INPUT_KEY;
+
 import appeng.client.gui.implementations.GuiInterface;
 import appeng.client.gui.implementations.GuiPatternTerm;
 import appeng.container.slot.SlotFake;
@@ -12,17 +14,14 @@ import com.github.vfyjxf.nee.network.packet.PacketSlotStackChange;
 import com.github.vfyjxf.nee.network.packet.PacketStackCountChange;
 import com.github.vfyjxf.nee.utils.GuiUtils;
 import com.github.vfyjxf.nee.utils.ItemUtils;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.github.vfyjxf.nee.nei.NEECraftingHandler.INPUT_KEY;
 
 public class AppengHelper {
 
@@ -33,7 +32,8 @@ public class AppengHelper {
      */
     public static boolean handleMouseWheelInput(int dWheel) {
         Minecraft mc = Minecraft.getMinecraft();
-        boolean isPatternTerm = mc.currentScreen instanceof GuiPatternTerm || GuiUtils.isPatternTermExGui(mc.currentScreen);
+        boolean isPatternTerm =
+                mc.currentScreen instanceof GuiPatternTerm || GuiUtils.isPatternTermExGui(mc.currentScreen);
         boolean isInterface = mc.currentScreen instanceof GuiInterface;
         if (isPatternTerm || isInterface) {
             if (dWheel != 0) {
@@ -41,13 +41,15 @@ public class AppengHelper {
                 int y = mc.currentScreen.height - Mouse.getEventY() * mc.currentScreen.height / mc.displayHeight - 1;
                 Slot currentSlot = ((GuiContainer) mc.currentScreen).getSlotAtPosition(x, y);
                 if (currentSlot instanceof SlotFake && currentSlot.getHasStack()) {
-                    //try to change current itemstack to next ingredient;
-                    if (Keyboard.isKeyDown(NEIClientConfig.getKeyBinding("nee.ingredient")) && GuiUtils.isCraftingSlot(currentSlot)) {
+                    // try to change current itemstack to next ingredient;
+                    if (Keyboard.isKeyDown(NEIClientConfig.getKeyBinding("nee.ingredient"))
+                            && GuiUtils.isCraftingSlot(currentSlot)) {
                         handleRecipeIngredientChange((GuiContainer) mc.currentScreen, currentSlot, dWheel);
                         return true;
                     } else if (Keyboard.isKeyDown(NEIClientConfig.getKeyBinding("nee.count"))) {
                         int changeCount = dWheel / 120;
-                        NEENetworkHandler.getInstance().sendToServer(new PacketStackCountChange(currentSlot.slotNumber, changeCount));
+                        NEENetworkHandler.getInstance()
+                                .sendToServer(new PacketStackCountChange(currentSlot.slotNumber, changeCount));
                         return true;
                     }
                 }
@@ -78,28 +80,29 @@ public class AppengHelper {
                     if (NEEConfig.allowSynchronousSwitchIngredient) {
                         for (Slot slot : getCraftingSlots(gui)) {
 
-                            PositionedStack slotIngredients = NEECraftingHandler.ingredients.get(INPUT_KEY + slot.getSlotIndex());
+                            PositionedStack slotIngredients =
+                                    NEECraftingHandler.ingredients.get(INPUT_KEY + slot.getSlotIndex());
 
-                            boolean areItemStackEqual = currentSlot.getHasStack() &&
-                                    slot.getHasStack() &&
-                                    currentSlot.getStack().isItemEqual(slot.getStack()) &&
-                                    ItemStack.areItemStackTagsEqual(currentSlot.getStack(), slot.getStack());
+                            boolean areItemStackEqual = currentSlot.getHasStack()
+                                    && slot.getHasStack()
+                                    && currentSlot.getStack().isItemEqual(slot.getStack())
+                                    && ItemStack.areItemStackTagsEqual(currentSlot.getStack(), slot.getStack());
 
-                            boolean areIngredientEqual = slotIngredients != null && currentIngredients.contains(slotIngredients.items[0]);
+                            boolean areIngredientEqual =
+                                    slotIngredients != null && currentIngredients.contains(slotIngredients.items[0]);
 
                             if (areItemStackEqual && areIngredientEqual) {
                                 craftingSlots.add(slot.slotNumber);
                             }
-
                         }
                     } else {
                         craftingSlots.add(currentSlot.slotNumber);
                     }
-                    NEENetworkHandler.getInstance().sendToServer(new PacketSlotStackChange(currentStack, craftingSlots));
+                    NEENetworkHandler.getInstance()
+                            .sendToServer(new PacketSlotStackChange(currentStack, craftingSlots));
                 }
             }
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -112,5 +115,4 @@ public class AppengHelper {
         }
         return craftingSlots;
     }
-
 }

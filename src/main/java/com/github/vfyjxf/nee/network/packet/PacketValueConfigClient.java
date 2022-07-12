@@ -19,13 +19,10 @@ import net.minecraft.client.gui.GuiScreen;
  */
 public class PacketValueConfigClient implements IMessage {
 
-
     private String name;
     private String value;
 
-    public PacketValueConfigClient() {
-
-    }
+    public PacketValueConfigClient() {}
 
     public PacketValueConfigClient(String name, String value) {
         this.name = name;
@@ -72,5 +69,4 @@ public class PacketValueConfigClient implements IMessage {
             }
         }
     }
-
 }

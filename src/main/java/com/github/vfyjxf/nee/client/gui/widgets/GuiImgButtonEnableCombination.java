@@ -33,7 +33,10 @@ public class GuiImgButtonEnableCombination extends GuiButton implements ITooltip
                 GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0f);
             }
             minecraft.renderEngine.bindTexture(new ResourceLocation("neenergistics", "textures/gui/states.png"));
-            this.field_146123_n = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+            this.field_146123_n = mouseX >= this.xPosition
+                    && mouseY >= this.yPosition
+                    && mouseX < this.xPosition + this.width
+                    && mouseY < this.yPosition + this.height;
             this.drawTexturedModalRect(0, 0, 0, 0, 16, 16);
             if (this.currentValue == ItemCombination.ENABLED) {
                 this.drawTexturedModalRect(0, 0, 16, 16, 16, 16);
@@ -59,9 +62,8 @@ public class GuiImgButtonEnableCombination extends GuiButton implements ITooltip
 
     @Override
     public String getMessage() {
-        return I18n.format("gui.neenergistics.button.title.combination") +
-                "\n" +
-                I18n.format("gui.neenergistics.button.tooltip.combination", currentValue.getLocalName());
+        return I18n.format("gui.neenergistics.button.title.combination") + "\n"
+                + I18n.format("gui.neenergistics.button.tooltip.combination", currentValue.getLocalName());
     }
 
     @Override

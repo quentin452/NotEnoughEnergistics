@@ -4,11 +4,9 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
 import cofh.thermalexpansion.plugins.nei.handlers.RecipeHandlerBase;
 import cpw.mods.fml.relauncher.ReflectionHelper;
-
-import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.util.*;
-
+import javax.annotation.Nonnull;
 
 public class ThermalExpansionRecipeProcessor implements IRecipeProcessor {
 
@@ -16,9 +14,14 @@ public class ThermalExpansionRecipeProcessor implements IRecipeProcessor {
     @Override
     public Set<String> getAllOverlayIdentifier() {
         return new HashSet<>(Arrays.asList(
-                "thermalexpansion.charger", "thermalexpansion.crucible", "thermalexpansion.furnace", "thermalexpansion.insolator",
-                "thermalexpansion.pulverizer", "thermalexpansion.sawmill", "thermalexpansion.smelter", "thermalexpansion.transposer"
-        ));
+                "thermalexpansion.charger",
+                "thermalexpansion.crucible",
+                "thermalexpansion.furnace",
+                "thermalexpansion.insolator",
+                "thermalexpansion.pulverizer",
+                "thermalexpansion.sawmill",
+                "thermalexpansion.smelter",
+                "thermalexpansion.transposer"));
     }
 
     @Nonnull
@@ -36,7 +39,8 @@ public class ThermalExpansionRecipeProcessor implements IRecipeProcessor {
             if (recipe instanceof RecipeHandlerBase) {
                 Class<?> NEIRecipeBase = null;
                 try {
-                    NEIRecipeBase = Class.forName("cofh.thermalexpansion.plugins.nei.handlers.RecipeHandlerBase$NEIRecipeBase");
+                    NEIRecipeBase =
+                            Class.forName("cofh.thermalexpansion.plugins.nei.handlers.RecipeHandlerBase$NEIRecipeBase");
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -44,7 +48,8 @@ public class ThermalExpansionRecipeProcessor implements IRecipeProcessor {
                     Field secondaryInputField = ReflectionHelper.findField(NEIRecipeBase, "secondaryInput");
                     PositionedStack secondaryInput = null;
                     try {
-                        secondaryInput = (PositionedStack) secondaryInputField.get(((RecipeHandlerBase) recipe).arecipes.get(recipeIndex));
+                        secondaryInput = (PositionedStack)
+                                secondaryInputField.get(((RecipeHandlerBase) recipe).arecipes.get(recipeIndex));
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
@@ -68,18 +73,22 @@ public class ThermalExpansionRecipeProcessor implements IRecipeProcessor {
             if (recipe instanceof RecipeHandlerBase) {
                 Class<?> NEIRecipeBase = null;
                 try {
-                    NEIRecipeBase = Class.forName("cofh.thermalexpansion.plugins.nei.handlers.RecipeHandlerBase$NEIRecipeBase");
+                    NEIRecipeBase =
+                            Class.forName("cofh.thermalexpansion.plugins.nei.handlers.RecipeHandlerBase$NEIRecipeBase");
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
                 if (NEIRecipeBase != null) {
                     Field secondaryOutputField = ReflectionHelper.findField(NEIRecipeBase, "secondaryOutput");
-                    Field secondaryOutputChanceField = ReflectionHelper.findField(NEIRecipeBase, "secondaryOutputChance");
+                    Field secondaryOutputChanceField =
+                            ReflectionHelper.findField(NEIRecipeBase, "secondaryOutputChance");
                     PositionedStack secondaryOutput = null;
                     int secondaryOutputChance = 0;
                     try {
-                        secondaryOutput = (PositionedStack) secondaryOutputField.get(((RecipeHandlerBase) recipe).arecipes.get(recipeIndex));
-                        secondaryOutputChance = (int) secondaryOutputChanceField.get(((RecipeHandlerBase) recipe).arecipes.get(recipeIndex));
+                        secondaryOutput = (PositionedStack)
+                                secondaryOutputField.get(((RecipeHandlerBase) recipe).arecipes.get(recipeIndex));
+                        secondaryOutputChance = (int)
+                                secondaryOutputChanceField.get(((RecipeHandlerBase) recipe).arecipes.get(recipeIndex));
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }

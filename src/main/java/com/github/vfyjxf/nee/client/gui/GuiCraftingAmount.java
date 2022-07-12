@@ -28,7 +28,6 @@ import net.minecraft.item.ItemStack;
 import net.p455w0rd.wirelesscraftingterminal.items.ItemEnum;
 import net.p455w0rd.wirelesscraftingterminal.reference.Reference;
 
-
 public class GuiCraftingAmount extends AEBaseGui {
     private GuiNumberBox amountToCraft;
     private GuiTabButton originalGuiBtn;
@@ -73,7 +72,8 @@ public class GuiCraftingAmount extends AEBaseGui {
         this.buttonList.add(this.minus100 = new GuiButton(0, this.guiLeft + 82, this.guiTop + 75, 32, 20, "-" + c));
         this.buttonList.add(this.minus1000 = new GuiButton(0, this.guiLeft + 120, this.guiTop + 75, 38, 20, "-" + d));
 
-        this.buttonList.add(this.next = new GuiButton(0, this.guiLeft + 128, this.guiTop + 51, 38, 20, GuiText.Next.getLocal()));
+        this.buttonList.add(
+                this.next = new GuiButton(0, this.guiLeft + 128, this.guiTop + 51, 38, 20, GuiText.Next.getLocal()));
 
         ItemStack myIcon = null;
         final Object target = ((AEBaseContainer) this.inventorySlots).getTarget();
@@ -92,13 +92,23 @@ public class GuiCraftingAmount extends AEBaseGui {
         }
 
         if (this.originalGui != null && myIcon != null) {
-            this.buttonList.add(this.originalGuiBtn = new GuiTabButton(this.guiLeft + 154, this.guiTop, myIcon, myIcon.getDisplayName(), itemRender));
+            this.buttonList.add(
+                    this.originalGuiBtn = new GuiTabButton(
+                            this.guiLeft + 154, this.guiTop, myIcon, myIcon.getDisplayName(), itemRender));
         }
         if (this.isWirelessCrafting && myIcon != null) {
-            this.buttonList.add(this.originalGuiBtn = new GuiTabButton(this.guiLeft + 154, this.guiTop, myIcon, myIcon.getDisplayName(), itemRender));
+            this.buttonList.add(
+                    this.originalGuiBtn = new GuiTabButton(
+                            this.guiLeft + 154, this.guiTop, myIcon, myIcon.getDisplayName(), itemRender));
         }
 
-        this.amountToCraft = new GuiNumberBox(this.fontRendererObj, this.guiLeft + 62, this.guiTop + 57, 59, this.fontRendererObj.FONT_HEIGHT, Integer.class);
+        this.amountToCraft = new GuiNumberBox(
+                this.fontRendererObj,
+                this.guiLeft + 62,
+                this.guiTop + 57,
+                59,
+                this.fontRendererObj.FONT_HEIGHT,
+                Integer.class);
         this.amountToCraft.setEnableBackgroundDrawing(false);
         this.amountToCraft.setMaxStringLength(16);
         this.amountToCraft.setTextColor(0xFFFFFF);
@@ -140,7 +150,13 @@ public class GuiCraftingAmount extends AEBaseGui {
             if (key == 28) {
                 this.actionPerformed(this.next);
             }
-            if ((key == 211 || key == 205 || key == 203 || key == 14 || character == '-' || Character.isDigit(character)) && this.amountToCraft.textboxKeyTyped(character, key)) {
+            if ((key == 211
+                            || key == 205
+                            || key == 203
+                            || key == 14
+                            || character == '-'
+                            || Character.isDigit(character))
+                    && this.amountToCraft.textboxKeyTyped(character, key)) {
                 try {
                     String out = this.amountToCraft.getText();
 
@@ -186,7 +202,9 @@ public class GuiCraftingAmount extends AEBaseGui {
             }
 
             if (btn == this.next) {
-                NEENetworkHandler.getInstance().sendToServer(new PacketCraftingRequest(Integer.parseInt(this.amountToCraft.getText()), isShiftKeyDown()));
+                NEENetworkHandler.getInstance()
+                        .sendToServer(new PacketCraftingRequest(
+                                Integer.parseInt(this.amountToCraft.getText()), isShiftKeyDown()));
             }
         } catch (final NumberFormatException e) {
             // nope..
@@ -194,7 +212,8 @@ public class GuiCraftingAmount extends AEBaseGui {
         }
 
         final boolean isPlus = btn == this.plus1 || btn == this.plus10 || btn == this.plus100 || btn == this.plus1000;
-        final boolean isMinus = btn == this.minus1 || btn == this.minus10 || btn == this.minus100 || btn == this.minus1000;
+        final boolean isMinus =
+                btn == this.minus1 || btn == this.minus10 || btn == this.minus100 || btn == this.minus1000;
 
         if (isPlus || isMinus) {
             this.addQty(this.getQty(btn));
@@ -244,6 +263,7 @@ public class GuiCraftingAmount extends AEBaseGui {
 
     @Optional.Method(modid = ModIDs.WCT)
     private void openWirelessCraftingGui() {
-        net.p455w0rd.wirelesscraftingterminal.core.sync.network.NetworkHandler.instance.sendToServer(new net.p455w0rd.wirelesscraftingterminal.core.sync.packets.PacketSwitchGuis(Reference.GUI_WCT));
+        net.p455w0rd.wirelesscraftingterminal.core.sync.network.NetworkHandler.instance.sendToServer(
+                new net.p455w0rd.wirelesscraftingterminal.core.sync.packets.PacketSwitchGuis(Reference.GUI_WCT));
     }
 }

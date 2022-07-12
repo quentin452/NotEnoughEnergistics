@@ -2,11 +2,10 @@ package com.github.vfyjxf.nee.processor;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 /**
  * @author vfyjxf
@@ -30,5 +29,4 @@ public interface IRecipeProcessor {
     default boolean mergeStacks(IRecipeHandler recipe, int recipeIndex, String identifier) {
         return true;
     }
-
 }

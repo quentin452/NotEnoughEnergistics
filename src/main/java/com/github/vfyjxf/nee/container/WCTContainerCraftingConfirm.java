@@ -41,5 +41,4 @@ public class WCTContainerCraftingConfirm extends ContainerCraftConfirm {
     public void setPatternIndex(int patternIndex) {
         this.patternIndex = patternIndex;
     }
-
 }

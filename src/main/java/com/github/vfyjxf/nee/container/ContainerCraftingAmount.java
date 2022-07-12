@@ -32,7 +32,6 @@ public class ContainerCraftingAmount extends AEBaseContainer {
         this.verifyPermissions(SecurityPermissions.CRAFT, false);
     }
 
-
     public IGrid getGrid() {
         final IActionHost h = ((IActionHost) this.getTarget());
         return h.getActionableNode().getGrid();

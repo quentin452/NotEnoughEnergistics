@@ -5,16 +5,15 @@ import codechicken.nei.recipe.IRecipeHandler;
 import gregtech.api.enums.ItemList;
 import gregtech.api.util.GT_Recipe;
 import gregtech.nei.GT_NEI_DefaultHandler.FixedPositionedStack;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
 /**
  * @author vfyjxf
@@ -41,9 +40,9 @@ public class GregTech5RecipeProcessor implements IRecipeProcessor {
      * Copied from GTNewHorizons/GT5-Unofficial.
      */
     public static FluidStack getFluidFromDisplayStack(ItemStack aDisplayStack) {
-        if (!isStackValid(aDisplayStack) ||
-                aDisplayStack.getItem() != ItemList.Display_Fluid.getItem() ||
-                !aDisplayStack.hasTagCompound()) {
+        if (!isStackValid(aDisplayStack)
+                || aDisplayStack.getItem() != ItemList.Display_Fluid.getItem()
+                || !aDisplayStack.hasTagCompound()) {
             return null;
         }
         Fluid tFluid = FluidRegistry.getFluid(ItemList.Display_Fluid.getItem().getDamage(aDisplayStack));
@@ -51,7 +50,9 @@ public class GregTech5RecipeProcessor implements IRecipeProcessor {
     }
 
     public static boolean isStackValid(Object aStack) {
-        return (aStack instanceof ItemStack) && ((ItemStack) aStack).getItem() != null && ((ItemStack) aStack).stackSize >= 0;
+        return (aStack instanceof ItemStack)
+                && ((ItemStack) aStack).getItem() != null
+                && ((ItemStack) aStack).stackSize >= 0;
     }
 
     @Nonnull
@@ -80,16 +81,19 @@ public class GregTech5RecipeProcessor implements IRecipeProcessor {
         List<PositionedStack> recipeInputs = new ArrayList<>();
         if (gtDefaultClz.isInstance(recipe) || gtAssLineClz.isInstance(recipe)) {
             recipeInputs.addAll(recipe.getIngredientStacks(recipeIndex));
-            recipeInputs.removeIf(positionedStack -> getFluidFromDisplayStack(positionedStack.items[0]) != null || positionedStack.item.stackSize == 0);
+            recipeInputs.removeIf(positionedStack ->
+                    getFluidFromDisplayStack(positionedStack.items[0]) != null || positionedStack.item.stackSize == 0);
             if (!recipeInputs.isEmpty()) {
                 ItemStack specialItem = recipeInputs.get(recipeInputs.size() - 1).items[0];
-                if ((specialItem.isItemEqual(ItemList.Tool_DataStick.get(1)) || specialItem.isItemEqual(ItemList.Tool_DataOrb.get(1)) && (recipe.getRecipeName().equals("gt.recipe.scanner") || recipe.getRecipeName().equals("gt.recipe.fakeAssemblylineProcess"))))
+                if ((specialItem.isItemEqual(ItemList.Tool_DataStick.get(1))
+                        || specialItem.isItemEqual(ItemList.Tool_DataOrb.get(1))
+                                && (recipe.getRecipeName().equals("gt.recipe.scanner")
+                                        || recipe.getRecipeName().equals("gt.recipe.fakeAssemblylineProcess"))))
                     recipeInputs.remove(recipeInputs.size() - 1);
             }
             return recipeInputs;
         }
         return recipeInputs;
-
     }
 
     @Nonnull
@@ -99,8 +103,10 @@ public class GregTech5RecipeProcessor implements IRecipeProcessor {
         if (gtDefaultClz.isInstance(recipe) || gtAssLineClz.isInstance(recipe)) {
             recipeOutputs.addAll(recipe.getOtherStacks(recipeIndex));
             recipeOutputs.removeIf(positionedStack -> getFluidFromDisplayStack(positionedStack.items[0]) != null);
-            //remove output if it's chance != 10000
-            recipeOutputs.removeIf(stack -> stack instanceof FixedPositionedStack && !(((FixedPositionedStack) stack).mChance == 10000 || ((FixedPositionedStack) stack).mChance <= 0));
+            // remove output if it's chance != 10000
+            recipeOutputs.removeIf(stack -> stack instanceof FixedPositionedStack
+                    && !(((FixedPositionedStack) stack).mChance == 10000
+                            || ((FixedPositionedStack) stack).mChance <= 0));
             return recipeOutputs;
         }
         return recipeOutputs;

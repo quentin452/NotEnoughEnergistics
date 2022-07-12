@@ -20,14 +20,12 @@ import net.minecraft.inventory.Slot;
 import net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal;
 import net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject;
 
-public class PacketValueConfigServer implements IMessage{
+public class PacketValueConfigServer implements IMessage {
 
     private String name;
     private String value;
 
-    public PacketValueConfigServer() {
-
-    }
+    public PacketValueConfigServer() {}
 
     public PacketValueConfigServer(String name, String value) {
         this.name = name;
@@ -76,20 +74,22 @@ public class PacketValueConfigServer implements IMessage{
                 }
             } else if ("PatternInterface.check".equals(message.name)) {
                 if (container instanceof AEBaseContainer || GuiUtils.isWirelessCraftingTermContainer(container)) {
-                    IGrid grid = container instanceof AEBaseContainer ? message.getNetwork((AEBaseContainer) container) : message.getNetwork((ContainerWirelessCraftingTerminal) container);
+                    IGrid grid = container instanceof AEBaseContainer
+                            ? message.getNetwork((AEBaseContainer) container)
+                            : message.getNetwork((ContainerWirelessCraftingTerminal) container);
                     if (grid != null) {
 
                         for (IGridNode gridNode : grid.getMachines(TilePatternInterface.class)) {
 
                             if (gridNode.getMachine() instanceof TilePatternInterface) {
-                                NEENetworkHandler.getInstance().sendTo(new PacketValueConfigClient("PatternInterface.check", "true"), player);
+                                NEENetworkHandler.getInstance()
+                                        .sendTo(new PacketValueConfigClient("PatternInterface.check", "true"), player);
                                 return null;
                             }
-
                         }
 
-                        NEENetworkHandler.getInstance().sendTo(new PacketValueConfigClient("PatternInterface.check", "false"), player);
-
+                        NEENetworkHandler.getInstance()
+                                .sendTo(new PacketValueConfigClient("PatternInterface.check", "false"), player);
                     }
                 }
             }
@@ -115,5 +115,4 @@ public class PacketValueConfigServer implements IMessage{
 
         return null;
     }
-
 }

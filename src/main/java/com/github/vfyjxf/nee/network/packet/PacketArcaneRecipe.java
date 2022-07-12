@@ -7,13 +7,12 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import io.netty.buffer.ByteBuf;
+import java.lang.reflect.Field;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import thaumicenergistics.common.container.ContainerKnowledgeInscriber;
-
-import java.lang.reflect.Field;
 
 /**
  * @author vfyjxf
@@ -22,8 +21,7 @@ public class PacketArcaneRecipe implements IMessage {
 
     NBTTagCompound input;
 
-    public PacketArcaneRecipe() {
-    }
+    public PacketArcaneRecipe() {}
 
     public PacketArcaneRecipe(NBTTagCompound input) {
         this.input = input;
@@ -39,7 +37,7 @@ public class PacketArcaneRecipe implements IMessage {
         ByteBufUtils.writeTag(buf, this.input);
     }
 
-    public static final class Handler implements IMessageHandler<PacketArcaneRecipe, IMessage>{
+    public static final class Handler implements IMessageHandler<PacketArcaneRecipe, IMessage> {
         @Override
         public IMessage onMessage(PacketArcaneRecipe message, MessageContext ctx) {
             EntityPlayerMP player = ctx.getServerHandler().playerEntity;
@@ -53,7 +51,8 @@ public class PacketArcaneRecipe implements IMessage {
                 }
 
                 Field craftingSlots = ReflectionHelper.findField(ContainerKnowledgeInscriber.class, "craftingSlots");
-                SlotFakeCraftingMatrix[] craftMatrix = this.getCraftingSlots(craftingSlots, (ContainerKnowledgeInscriber) container);
+                SlotFakeCraftingMatrix[] craftMatrix =
+                        this.getCraftingSlots(craftingSlots, (ContainerKnowledgeInscriber) container);
                 if (craftMatrix != null && message.input != null) {
                     for (int i = 0; i < recipeInput.length; i++) {
                         ItemStack currentItem = null;
@@ -77,6 +76,4 @@ public class PacketArcaneRecipe implements IMessage {
             return null;
         }
     }
-
-
 }

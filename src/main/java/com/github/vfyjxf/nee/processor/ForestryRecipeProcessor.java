@@ -2,11 +2,8 @@ package com.github.vfyjxf.nee.processor;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import javax.annotation.Nonnull;
-
 import java.util.*;
-
+import javax.annotation.Nonnull;
 
 public class ForestryRecipeProcessor implements IRecipeProcessor {
 
@@ -14,8 +11,15 @@ public class ForestryRecipeProcessor implements IRecipeProcessor {
     @Override
     public Set<String> getAllOverlayIdentifier() {
         return new HashSet<>(Arrays.asList(
-                "forestry.bottler", "forestry.carpenter", "forestry.centrifuge", "forestry.fabricator", "forestry.fermenter", "forestry.moistener", "forestry.squeezer", "forestry.still",RecipeProcessor.NULL_IDENTIFIER
-        ));
+                "forestry.bottler",
+                "forestry.carpenter",
+                "forestry.centrifuge",
+                "forestry.fabricator",
+                "forestry.fermenter",
+                "forestry.moistener",
+                "forestry.squeezer",
+                "forestry.still",
+                RecipeProcessor.NULL_IDENTIFIER));
     }
 
     @Nonnull
@@ -43,5 +47,4 @@ public class ForestryRecipeProcessor implements IRecipeProcessor {
         }
         return recipeOutput;
     }
-
 }

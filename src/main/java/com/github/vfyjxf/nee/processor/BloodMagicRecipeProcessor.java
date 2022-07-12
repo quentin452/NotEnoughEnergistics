@@ -2,9 +2,8 @@ package com.github.vfyjxf.nee.processor;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import javax.annotation.Nonnull;
 import java.util.*;
+import javax.annotation.Nonnull;
 
 /**
  * @author vfyjxf
@@ -13,12 +12,8 @@ public class BloodMagicRecipeProcessor implements IRecipeProcessor {
     @Nonnull
     @Override
     public Set<String> getAllOverlayIdentifier() {
-        return new HashSet<>(Arrays.asList(
-                "altarrecipes",
-                "alchemicalwizardry.alchemy",
-                "alchemicalwizardry.bindingritual"
-
-        ));
+        return new HashSet<>(
+                Arrays.asList("altarrecipes", "alchemicalwizardry.alchemy", "alchemicalwizardry.bindingritual"));
     }
 
     @Nonnull
