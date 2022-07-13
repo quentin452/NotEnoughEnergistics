@@ -19,9 +19,7 @@ public class PacketStackCountChange implements IMessage {
     private int slotIndex;
     private int changeCount;
 
-    public PacketStackCountChange() {
-
-    }
+    public PacketStackCountChange() {}
 
     public PacketStackCountChange(int slotIndex, int changeCount) {
         this.slotIndex = slotIndex;
@@ -67,7 +65,9 @@ public class PacketStackCountChange implements IMessage {
 
             Slot currentSlot = container.getSlot(message.getSlotIndex());
             for (int i = 0; i < Math.abs(message.getChangeCount()); i++) {
-                int currentStackSize = message.getChangeCount() > 0 ? currentSlot.getStack().stackSize + 1 : currentSlot.getStack().stackSize - 1;
+                int currentStackSize = message.getChangeCount() > 0
+                        ? currentSlot.getStack().stackSize + 1
+                        : currentSlot.getStack().stackSize - 1;
                 if (currentStackSize <= currentSlot.getStack().getMaxStackSize() && currentStackSize > 0) {
                     ItemStack nextStack = currentSlot.getStack().copy();
                     nextStack.stackSize = currentStackSize;
@@ -78,5 +78,4 @@ public class PacketStackCountChange implements IMessage {
             }
         }
     }
-
 }

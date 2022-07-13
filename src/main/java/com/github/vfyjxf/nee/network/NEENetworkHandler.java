@@ -19,17 +19,23 @@ public class NEENetworkHandler {
     }
 
     public static void init() {
-        INSTANCE.registerMessage(PacketNEIPatternRecipe.Handler.class, PacketNEIPatternRecipe.class, nextId(), Side.SERVER);
+        INSTANCE.registerMessage(
+                PacketNEIPatternRecipe.Handler.class, PacketNEIPatternRecipe.class, nextId(), Side.SERVER);
         INSTANCE.registerMessage(PacketArcaneRecipe.Handler.class, PacketArcaneRecipe.class, nextId(), Side.SERVER);
         INSTANCE.registerMessage(PacketExtremeRecipe.Handler.class, PacketExtremeRecipe.class, nextId(), Side.SERVER);
-        INSTANCE.registerMessage(PacketStackCountChange.Handler.class, PacketStackCountChange.class, nextId(), Side.SERVER);
-        INSTANCE.registerMessage(PacketSlotStackChange.Handler.class, PacketSlotStackChange.class, nextId(), Side.SERVER);
-        INSTANCE.registerMessage(PacketCraftingRequest.Handler.class, PacketCraftingRequest.class, nextId(), Side.SERVER);
-        INSTANCE.registerMessage(PacketOpenCraftAmount.Handler.class, PacketOpenCraftAmount.class, nextId(), Side.SERVER);
+        INSTANCE.registerMessage(
+                PacketStackCountChange.Handler.class, PacketStackCountChange.class, nextId(), Side.SERVER);
+        INSTANCE.registerMessage(
+                PacketSlotStackChange.Handler.class, PacketSlotStackChange.class, nextId(), Side.SERVER);
+        INSTANCE.registerMessage(
+                PacketCraftingRequest.Handler.class, PacketCraftingRequest.class, nextId(), Side.SERVER);
+        INSTANCE.registerMessage(
+                PacketOpenCraftAmount.Handler.class, PacketOpenCraftAmount.class, nextId(), Side.SERVER);
         INSTANCE.registerMessage(PacketOpenGui.Handler.class, PacketOpenGui.class, nextId(), Side.SERVER);
         INSTANCE.registerMessage(PacketSetRecipe.Handler.class, PacketSetRecipe.class, nextId(), Side.SERVER);
-        INSTANCE.registerMessage(PacketValueConfigServer.Handler.class, PacketValueConfigServer.class, nextId(), Side.SERVER);
-        INSTANCE.registerMessage(PacketValueConfigClient.Handler.class, PacketValueConfigClient.class, nextId(), Side.CLIENT);
+        INSTANCE.registerMessage(
+                PacketValueConfigServer.Handler.class, PacketValueConfigServer.class, nextId(), Side.SERVER);
+        INSTANCE.registerMessage(
+                PacketValueConfigClient.Handler.class, PacketValueConfigClient.class, nextId(), Side.CLIENT);
     }
-
 }

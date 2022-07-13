@@ -2,30 +2,25 @@ package com.github.vfyjxf.nee.processor;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-import com.djgiannuzz.thaumcraftneiplugin.items.ItemAspect;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.annotation.Nonnull;
 
-/**
- * @author vfyjxf
- */
-public class TCNEIPluginRecipeProcessor implements IRecipeProcessor {
+public class GoodGeneratorRecipeProcessor implements IRecipeProcessor {
 
     @Nonnull
     @Override
     public Set<String> getAllOverlayIdentifier() {
-        return new HashSet<>(Arrays.asList(
-                "arcaneshapedrecipes",
-                "arcaneshapelessrecipes",
-                "aspectsRecipe",
-                "cruciblerecipe",
-                "infusionCrafting"));
+        return new HashSet<>(Arrays.asList("gg.recipe.neutron_activator", "gg.recipe.precise_assembler"));
     }
 
     @Nonnull
     @Override
     public String getRecipeProcessorId() {
-        return "TCNEIPlugin";
+        return "Good Generator";
     }
 
     @Nonnull
@@ -34,7 +29,9 @@ public class TCNEIPluginRecipeProcessor implements IRecipeProcessor {
         List<PositionedStack> recipeInputs = new ArrayList<>();
         if (this.getAllOverlayIdentifier().contains(identifier)) {
             recipeInputs.addAll(recipe.getIngredientStacks(recipeIndex));
-            recipeInputs.removeIf(positionedStack -> positionedStack.item.getItem() instanceof ItemAspect);
+            recipeInputs.removeIf(positionedStack ->
+                    GregTech5RecipeProcessor.getFluidFromDisplayStack(positionedStack.items[0]) != null
+                            || positionedStack.item.stackSize == 0);
             return recipeInputs;
         }
         return recipeInputs;
@@ -45,7 +42,9 @@ public class TCNEIPluginRecipeProcessor implements IRecipeProcessor {
     public List<PositionedStack> getRecipeOutput(IRecipeHandler recipe, int recipeIndex, String identifier) {
         List<PositionedStack> recipeOutputs = new ArrayList<>();
         if (this.getAllOverlayIdentifier().contains(identifier)) {
-            recipeOutputs.add(recipe.getResultStack(recipeIndex));
+            recipeOutputs.addAll(recipe.getOtherStacks(recipeIndex));
+            recipeOutputs.removeIf(positionedStack ->
+                    GregTech5RecipeProcessor.getFluidFromDisplayStack(positionedStack.items[0]) != null);
             return recipeOutputs;
         }
         return recipeOutputs;

@@ -12,7 +12,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
-
 public class GuiPatternInterface extends AEBaseGui {
 
     private final ContainerPatternInterface container;
@@ -25,7 +24,6 @@ public class GuiPatternInterface extends AEBaseGui {
         this.container = (ContainerPatternInterface) this.inventorySlots;
     }
 
-
     @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
@@ -35,22 +33,19 @@ public class GuiPatternInterface extends AEBaseGui {
     }
 
     @Override
-    public void drawFG(int offsetX, int offsetY, int mouseX, int mouseY) {
-
-    }
+    public void drawFG(int offsetX, int offsetY, int mouseX, int mouseY) {}
 
     @Override
     public void drawBG(int offsetX, int offsetY, int mouseX, int mouseY) {
         this.mc.getTextureManager().bindTexture(getBackground());
         this.drawTexturedModalRect(offsetX, offsetY, 0, 0, 211 - 34, this.ySize);
-
     }
 
     @Override
     protected void actionPerformed(GuiButton button) {
         super.actionPerformed(button);
         if (button == this.removeButton) {
-            //We shouldn't delete a null, right?
+            // We shouldn't delete a null, right?
             if (container.getSelectedSlot() != null) {
                 NEENetworkHandler.getInstance().sendToServer(new PacketValueConfigServer("Gui.PatternInterface"));
             }
@@ -61,7 +56,9 @@ public class GuiPatternInterface extends AEBaseGui {
     protected void mouseClicked(int mouseX, int mouseY, int btn) {
         if (btn == 0 && this.theSlot instanceof SlotRestrictedInput) {
             SlotRestrictedInput slot = (SlotRestrictedInput) this.theSlot;
-            NEENetworkHandler.getInstance().sendToServer(new PacketValueConfigServer("Container.selectedSlot", Integer.toString(slot.slotNumber)));
+            NEENetworkHandler.getInstance()
+                    .sendToServer(
+                            new PacketValueConfigServer("Container.selectedSlot", Integer.toString(slot.slotNumber)));
             container.setSelectedSlotIndex(slot.slotNumber);
         }
         super.mouseClicked(mouseX, mouseY, btn);

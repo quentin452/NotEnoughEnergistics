@@ -4,11 +4,10 @@ import buildcraft.compat.nei.RecipeHandlerAssemblyTable;
 import buildcraft.compat.nei.RecipeHandlerIntegrationTable;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.annotation.Nonnull;
 
 /**
  * @author vfyjxf
@@ -43,12 +42,17 @@ public class BuildCraftRecipeProcessor implements IRecipeProcessor {
         return new ArrayList<>();
     }
 
-    private List<PositionedStack> handlerAssemblyTableRecipe(RecipeHandlerAssemblyTable recipe, int recipeIndex, boolean getInput) {
-        return getInput ? recipe.getIngredientStacks(recipeIndex) : Collections.singletonList(recipe.getResultStack(recipeIndex));
+    private List<PositionedStack> handlerAssemblyTableRecipe(
+            RecipeHandlerAssemblyTable recipe, int recipeIndex, boolean getInput) {
+        return getInput
+                ? recipe.getIngredientStacks(recipeIndex)
+                : Collections.singletonList(recipe.getResultStack(recipeIndex));
     }
 
-    private List<PositionedStack> handlerIntegrationTableRecipe(RecipeHandlerIntegrationTable recipe, int recipeIndex, boolean getInput) {
-        return getInput ? recipe.getIngredientStacks(recipeIndex) : Collections.singletonList(recipe.getResultStack(recipeIndex));
+    private List<PositionedStack> handlerIntegrationTableRecipe(
+            RecipeHandlerIntegrationTable recipe, int recipeIndex, boolean getInput) {
+        return getInput
+                ? recipe.getIngredientStacks(recipeIndex)
+                : Collections.singletonList(recipe.getResultStack(recipeIndex));
     }
-
 }

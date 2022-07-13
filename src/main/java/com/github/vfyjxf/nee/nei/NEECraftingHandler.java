@@ -1,5 +1,7 @@
 package com.github.vfyjxf.nee.nei;
 
+import static com.github.vfyjxf.nee.processor.RecipeProcessor.NULL_IDENTIFIER;
+
 import appeng.client.gui.implementations.GuiPatternTerm;
 import appeng.util.Platform;
 import codechicken.nei.PositionedStack;
@@ -16,14 +18,11 @@ import com.github.vfyjxf.nee.processor.IRecipeProcessor;
 import com.github.vfyjxf.nee.processor.RecipeProcessor;
 import com.github.vfyjxf.nee.utils.GuiUtils;
 import com.github.vfyjxf.nee.utils.ItemUtils;
+import java.util.*;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.*;
-
-import static com.github.vfyjxf.nee.processor.RecipeProcessor.NULL_IDENTIFIER;
 
 /**
  * @author vfyjxf
@@ -67,13 +66,15 @@ public class NEECraftingHandler implements IOverlayHandler {
     private PacketNEIPatternRecipe packProcessRecipe(IRecipeHandler recipe, int recipeIndex) {
         final NBTTagCompound recipeInputs = new NBTTagCompound();
         NBTTagCompound recipeOutputs = new NBTTagCompound();
-        String identifier = recipe instanceof TemplateRecipeHandler ? ((TemplateRecipeHandler) recipe).getOverlayIdentifier() : NULL_IDENTIFIER;
-        if (identifier == null){
+        String identifier = recipe instanceof TemplateRecipeHandler
+                ? ((TemplateRecipeHandler) recipe).getOverlayIdentifier()
+                : NULL_IDENTIFIER;
+        if (identifier == null) {
             identifier = NULL_IDENTIFIER;
         }
         int inputIndex = 0;
         int outputIndex = 0;
-        //get all recipe inputs and other stacks,use first item
+        // get all recipe inputs and other stacks,use first item
         for (IRecipeProcessor processor : RecipeProcessor.recipeProcessors) {
             if (processor.getAllOverlayIdentifier().contains(identifier)) {
                 List<PositionedStack> inputs = processor.getRecipeInput(recipe, recipeIndex, identifier);
@@ -87,13 +88,19 @@ public class NEECraftingHandler implements IOverlayHandler {
                         ItemStack currentStack = positionedStack.items[0];
                         boolean find = false;
                         ItemCombination currentValue = ItemCombination.valueOf(NEEConfig.itemCombinationMode);
-                        if (currentValue != ItemCombination.DISABLED && processor.mergeStacks(recipe, recipeIndex, identifier)) {
-                            boolean isWhitelist = currentValue == ItemCombination.WHITELIST && Arrays.asList(NEEConfig.itemCombinationWhitelist).contains(identifier);
+                        if (currentValue != ItemCombination.DISABLED
+                                && processor.mergeStacks(recipe, recipeIndex, identifier)) {
+                            boolean isWhitelist = currentValue == ItemCombination.WHITELIST
+                                    && Arrays.asList(NEEConfig.itemCombinationWhitelist)
+                                            .contains(identifier);
                             if (currentValue == ItemCombination.ENABLED || isWhitelist) {
                                 for (PositionedStack storedStack : mergedInputs) {
                                     ItemStack firstStack = storedStack.items[0];
-                                    boolean areItemStackEqual = firstStack.isItemEqual(currentStack) && ItemStack.areItemStackTagsEqual(firstStack, currentStack);
-                                    if (areItemStackEqual && (firstStack.stackSize + currentStack.stackSize) <= firstStack.getMaxStackSize()) {
+                                    boolean areItemStackEqual = firstStack.isItemEqual(currentStack)
+                                            && ItemStack.areItemStackTagsEqual(firstStack, currentStack);
+                                    if (areItemStackEqual
+                                            && (firstStack.stackSize + currentStack.stackSize)
+                                                    <= firstStack.getMaxStackSize()) {
                                         find = true;
                                         storedStack.items[0].stackSize = firstStack.stackSize + currentStack.stackSize;
                                     }
@@ -114,7 +121,8 @@ public class NEECraftingHandler implements IOverlayHandler {
                         }
 
                         for (ItemStack stack : positionedStack.items) {
-                            if (Platform.isRecipePrioritized(stack) || ItemUtils.isPreferItems(stack, recipeProcessorId, identifier)) {
+                            if (Platform.isRecipePrioritized(stack)
+                                    || ItemUtils.isPreferItems(stack, recipeProcessorId, identifier)) {
                                 currentStack = stack.copy();
                                 currentStack.stackSize = positionedStack.items[0].stackSize;
                                 break;
@@ -235,7 +243,8 @@ public class NEECraftingHandler implements IOverlayHandler {
     private void extremeAutoCrafterHandler(GuiContainer firstGui, IRecipeHandler recipe, int recipeIndex) {
         final Class<?> guiExtremeAutoCrafterClz;
         try {
-            guiExtremeAutoCrafterClz = Class.forName("wanion.avaritiaddons.block.extremeautocrafter.GuiExtremeAutoCrafter");
+            guiExtremeAutoCrafterClz =
+                    Class.forName("wanion.avaritiaddons.block.extremeautocrafter.GuiExtremeAutoCrafter");
         } catch (ClassNotFoundException e) {
             return;
         }
@@ -293,5 +302,4 @@ public class NEECraftingHandler implements IOverlayHandler {
                 return 0;
         }
     }
-
 }

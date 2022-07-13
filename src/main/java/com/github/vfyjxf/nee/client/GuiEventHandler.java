@@ -1,5 +1,9 @@
 package com.github.vfyjxf.nee.client;
 
+import static com.github.vfyjxf.nee.config.NEEConfig.draggedStackDefaultSize;
+import static com.github.vfyjxf.nee.config.NEEConfig.useStackSizeFromNEI;
+import static com.github.vfyjxf.nee.nei.NEECraftingHelper.tracker;
+
 import appeng.client.gui.AEBaseGui;
 import appeng.client.gui.implementations.GuiCraftConfirm;
 import appeng.client.gui.implementations.GuiPatternTerm;
@@ -21,6 +25,8 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import java.util.Collections;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -31,13 +37,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import org.lwjgl.input.Mouse;
-
-import java.util.Collections;
-import java.util.List;
-
-import static com.github.vfyjxf.nee.config.NEEConfig.draggedStackDefaultSize;
-import static com.github.vfyjxf.nee.config.NEEConfig.useStackSizeFromNEI;
-import static com.github.vfyjxf.nee.nei.NEECraftingHelper.tracker;
 
 public class GuiEventHandler implements INEIGuiHandler {
 
@@ -67,7 +66,6 @@ public class GuiEventHandler implements INEIGuiHandler {
                 }
             }
         }
-
     }
 
     @SubscribeEvent
@@ -81,7 +79,8 @@ public class GuiEventHandler implements INEIGuiHandler {
 
             if (GuiUtils.isWirelessGuiCraftConfirm(event.gui)) {
                 assert event.gui instanceof net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm;
-                if (getCancelButton((net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm) event.gui) == event.button) {
+                if (getCancelButton((net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm) event.gui)
+                        == event.button) {
                     tracker = null;
                 }
             }
@@ -94,14 +93,15 @@ public class GuiEventHandler implements INEIGuiHandler {
 
     @Optional.Method(modid = ModIDs.WCT)
     private GuiButton getCancelButton(net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm gui) {
-        return ObfuscationReflectionHelper.getPrivateValue(net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm.class, gui, "cancel");
+        return ObfuscationReflectionHelper.getPrivateValue(
+                net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm.class, gui, "cancel");
     }
 
     private boolean isContainerCraftConfirm(Container container) {
-        return (container instanceof ContainerCraftConfirm || GuiUtils.isContainerWirelessCraftingConfirm(container)) &&
-                !((container instanceof ContainerCraftingConfirm) || (GuiUtils.isWCTContainerCraftingConfirm(container)));
+        return (container instanceof ContainerCraftConfirm || GuiUtils.isContainerWirelessCraftingConfirm(container))
+                && !((container instanceof ContainerCraftingConfirm)
+                        || (GuiUtils.isWCTContainerCraftingConfirm(container)));
     }
-
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
@@ -114,10 +114,15 @@ public class GuiEventHandler implements INEIGuiHandler {
                 hasDoubleBtn = false;
             }
             if (hasDoubleBtn) {
-                buttonCombination = new GuiImgButtonEnableCombination(gui.guiLeft + 84, gui.guiTop + gui.ySize - 153, ItemCombination.valueOf(NEEConfig.itemCombinationMode));
+                buttonCombination = new GuiImgButtonEnableCombination(
+                        gui.guiLeft + 84,
+                        gui.guiTop + gui.ySize - 153,
+                        ItemCombination.valueOf(NEEConfig.itemCombinationMode));
             } else {
-                buttonCombination = new GuiImgButtonEnableCombination(gui.guiLeft + 74, gui.guiTop + gui.ySize - 153, ItemCombination.valueOf(NEEConfig.itemCombinationMode));
-
+                buttonCombination = new GuiImgButtonEnableCombination(
+                        gui.guiLeft + 74,
+                        gui.guiTop + gui.ySize - 153,
+                        ItemCombination.valueOf(NEEConfig.itemCombinationMode));
             }
             event.buttonList.add(buttonCombination);
         }
@@ -127,7 +132,9 @@ public class GuiEventHandler implements INEIGuiHandler {
     public void onActionPerformed(GuiScreenEvent.ActionPerformedEvent.Pre event) {
         if (event.button == this.buttonCombination) {
             GuiImgButtonEnableCombination button = (GuiImgButtonEnableCombination) event.button;
-            int ordinal = Mouse.getEventButton() != 2 ? button.getCurrentValue().ordinal() + 1 : button.getCurrentValue().ordinal() - 1;
+            int ordinal = Mouse.getEventButton() != 2
+                    ? button.getCurrentValue().ordinal() + 1
+                    : button.getCurrentValue().ordinal() - 1;
 
             if (ordinal >= ItemCombination.values().length) {
                 ordinal = 0;
@@ -171,7 +178,7 @@ public class GuiEventHandler implements INEIGuiHandler {
 
     @Override
     public boolean handleDragNDrop(GuiContainer gui, int mouseX, int mouseY, ItemStack draggedStack, int button) {
-        //When NEIAddons exist, give them to NEIAddons to handle
+        // When NEIAddons exist, give them to NEIAddons to handle
         if (Loader.isModLoaded("NEIAddons") && NEEConfig.useNEIDragFromNEIAddons) {
             return false;
         }
@@ -186,11 +193,17 @@ public class GuiEventHandler implements INEIGuiHandler {
                         boolean sendPacket = false;
                         int copySize = useStackSizeFromNEI ? copyStack.stackSize : draggedStackDefaultSize;
                         if (button == 0) {
-                            boolean areStackEqual = slotStack != null && slotStack.isItemEqual(copyStack) && ItemStack.areItemStackTagsEqual(slotStack, copyStack);
-                            copyStack.stackSize = areStackEqual ? Math.min(slotStack.stackSize + copySize, 127) : Math.min(copySize, 127);
+                            boolean areStackEqual = slotStack != null
+                                    && slotStack.isItemEqual(copyStack)
+                                    && ItemStack.areItemStackTagsEqual(slotStack, copyStack);
+                            copyStack.stackSize = areStackEqual
+                                    ? Math.min(slotStack.stackSize + copySize, 127)
+                                    : Math.min(copySize, 127);
                             sendPacket = true;
                         } else if (button == 1) {
-                            boolean areStackEqual = slotStack != null && slotStack.isItemEqual(copyStack) && ItemStack.areItemStackTagsEqual(slotStack, copyStack);
+                            boolean areStackEqual = slotStack != null
+                                    && slotStack.isItemEqual(copyStack)
+                                    && ItemStack.areItemStackTagsEqual(slotStack, copyStack);
                             if (areStackEqual) {
                                 copyStack.stackSize = Math.min(slotStack.stackSize + 1, 127);
                             } else {
@@ -200,7 +213,9 @@ public class GuiEventHandler implements INEIGuiHandler {
                         }
 
                         if (sendPacket) {
-                            NEENetworkHandler.getInstance().sendToServer(new PacketSlotStackChange(copyStack, Collections.singletonList(currentSlot.slotNumber)));
+                            NEENetworkHandler.getInstance()
+                                    .sendToServer(new PacketSlotStackChange(
+                                            copyStack, Collections.singletonList(currentSlot.slotNumber)));
                             if (!NEEConfig.keepGhostitems) {
                                 draggedStack.stackSize = 0;
                             }
@@ -221,4 +236,3 @@ public class GuiEventHandler implements INEIGuiHandler {
         return false;
     }
 }
-

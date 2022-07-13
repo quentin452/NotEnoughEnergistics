@@ -12,14 +12,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import java.io.File;
 import net.minecraft.launchwrapper.Launch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-
-
-@Mod(modid = NotEnoughEnergistics.MODID,
+@Mod(
+        modid = NotEnoughEnergistics.MODID,
         version = NotEnoughEnergistics.VERSION,
         name = NotEnoughEnergistics.NAME,
         dependencies = NotEnoughEnergistics.DEPENDENCIES,
@@ -29,11 +28,14 @@ public class NotEnoughEnergistics {
     public static final String MODID = "neenergistics";
     public static final String NAME = "NotEnoughEnergistics";
     public static final String VERSION = "GRADLETOKEN_VERSION";
-    public static final String DEPENDENCIES = "required-after:NotEnoughItems;required-after:appliedenergistics2;after:ae2wct";
+    public static final String DEPENDENCIES =
+            "required-after:NotEnoughItems;required-after:appliedenergistics2;after:ae2wct";
     public static final String GUI_FACTORY = "com.github.vfyjxf.nee.config.NEEConfigGuiFactory";
     public static final Logger logger = LogManager.getLogger("NotEnoughEnergistics");
 
-    @SidedProxy(clientSide = "com.github.vfyjxf.nee.proxy.ClientProxy", serverSide = "com.github.vfyjxf.nee.proxy.ServerProxy")
+    @SidedProxy(
+            clientSide = "com.github.vfyjxf.nee.proxy.ClientProxy",
+            serverSide = "com.github.vfyjxf.nee.proxy.ServerProxy")
     public static CommonProxy proxy;
 
     @Mod.Instance(MODID)
@@ -56,5 +58,4 @@ public class NotEnoughEnergistics {
     public void postInit(FMLPostInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new NEEGuiHandler());
     }
-
 }

@@ -1,5 +1,7 @@
 package com.github.vfyjxf.nee.utils;
 
+import static com.github.vfyjxf.nee.config.NEEConfig.*;
+
 import codechicken.nei.PositionedStack;
 import com.github.vfyjxf.nee.NotEnoughEnergistics;
 import com.github.vfyjxf.nee.processor.IRecipeProcessor;
@@ -8,16 +10,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.github.vfyjxf.nee.config.NEEConfig.*;
 
 public final class ItemUtils {
 
@@ -43,7 +42,9 @@ public final class ItemUtils {
             if (processor != null) {
                 Item currentItem = GameRegistry.findItem(processor.modid, processor.name);
                 if (currentItem != null) {
-                    ItemStack currentStack = processor.meta != null ? new ItemStack(currentItem, 1, Integer.parseInt(processor.meta)) : new ItemStack(currentItem);
+                    ItemStack currentStack = processor.meta != null
+                            ? new ItemStack(currentItem, 1, Integer.parseInt(processor.meta))
+                            : new ItemStack(currentItem);
                     if (processor.nbt != null) {
                         NBTTagCompound nbt = null;
                         try {
@@ -55,7 +56,8 @@ public final class ItemUtils {
                             currentStack.setTagCompound(nbt);
                         }
                     }
-                    transformItemBlacklist.add(new StackProcessor(currentStack, currentItem, processor.recipeProcessor, processor.identifier));
+                    transformItemBlacklist.add(new StackProcessor(
+                            currentStack, currentItem, processor.recipeProcessor, processor.identifier));
                 }
             }
         }
@@ -76,7 +78,9 @@ public final class ItemUtils {
             if (processor != null) {
                 Item currentItem = GameRegistry.findItem(processor.modid, processor.name);
                 if (currentItem != null) {
-                    ItemStack currentStack = processor.meta != null ? new ItemStack(currentItem, 1, Integer.parseInt(processor.meta)) : new ItemStack(currentItem);
+                    ItemStack currentStack = processor.meta != null
+                            ? new ItemStack(currentItem, 1, Integer.parseInt(processor.meta))
+                            : new ItemStack(currentItem);
                     if (processor.nbt != null) {
                         NBTTagCompound nbt = null;
                         try {
@@ -88,14 +92,14 @@ public final class ItemUtils {
                             currentStack.setTagCompound(nbt);
                         }
                     }
-                    transformItemPriorityList.add(new StackProcessor(currentStack, currentItem, processor.recipeProcessor, processor.identifier));
+                    transformItemPriorityList.add(new StackProcessor(
+                            currentStack, currentItem, processor.recipeProcessor, processor.identifier));
                 }
             }
         }
 
         return transformItemPriorityList;
     }
-
 
     public static boolean isPreferItems(ItemStack itemStack, String recipeProcessor, String identifier) {
         for (StackProcessor processor : ItemUtils.transformItemPriorityList) {
@@ -173,9 +177,11 @@ public final class ItemUtils {
 
     public static String toItemJsonString(ItemStack stack) {
         GameRegistry.UniqueIdentifier identifier = GameRegistry.findUniqueIdentifierFor(stack.getItem());
-        String nbtString = stack.hasTagCompound() ? ",\"nbt\":" + stack.getTagCompound().toString() : "";
+        String nbtString =
+                stack.hasTagCompound() ? ",\"nbt\":" + stack.getTagCompound().toString() : "";
         int meta = stack.getItemDamage();
-        return "{" + "\"modid\":" + identifier.modId + "," + "\"name\":" + identifier.name + "," + "\"meta\":" + meta + nbtString + "}";
+        return "{" + "\"modid\":" + identifier.modId + "," + "\"name\":" + identifier.name + "," + "\"meta\":" + meta
+                + nbtString + "}";
     }
 
     public static boolean hasRecipeProcessor(String processorId) {
@@ -223,7 +229,7 @@ public final class ItemUtils {
                     stack.setTagCompound(NBT);
                 }
             }
-        } catch (ClassNotFoundException ignored) {}
+        } catch (ClassNotFoundException ignored) {
+        }
     }
-
 }

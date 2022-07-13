@@ -11,14 +11,11 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 
-
-public class PacketOpenGui implements IMessage{
+public class PacketOpenGui implements IMessage {
 
     private int guiId;
 
-    public PacketOpenGui() {
-
-    }
+    public PacketOpenGui() {}
 
     public PacketOpenGui(int guiId) {
         this.guiId = guiId;
@@ -34,7 +31,7 @@ public class PacketOpenGui implements IMessage{
         buf.writeInt(this.guiId);
     }
 
-    public static final class Handler implements IMessageHandler<PacketOpenGui, IMessage>{
+    public static final class Handler implements IMessageHandler<PacketOpenGui, IMessage> {
 
         @Override
         public IMessage onMessage(PacketOpenGui message, MessageContext ctx) {
@@ -49,7 +46,5 @@ public class PacketOpenGui implements IMessage{
             }
             return null;
         }
-
     }
-
 }

@@ -2,9 +2,8 @@ package com.github.vfyjxf.nee.processor;
 
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import javax.annotation.Nonnull;
 import java.util.*;
+import javax.annotation.Nonnull;
 
 /**
  * @author vfyjxf
@@ -14,10 +13,16 @@ public class ICRecipeProcessor implements IRecipeProcessor {
     @Override
     public Set<String> getAllOverlayIdentifier() {
         return new HashSet<>(Arrays.asList(
-                "blastfurnace", "BlockCutter", "centrifuge", "compressor",
-                "extractor", "fluidcanner", "macerator",
-                "metalformer", "oreWashing", "solidcanner"
-        ));
+                "blastfurnace",
+                "BlockCutter",
+                "centrifuge",
+                "compressor",
+                "extractor",
+                "fluidcanner",
+                "macerator",
+                "metalformer",
+                "oreWashing",
+                "solidcanner"));
     }
 
     @Nonnull
@@ -48,6 +53,4 @@ public class ICRecipeProcessor implements IRecipeProcessor {
         }
         return recipeOutputs;
     }
-
-
 }

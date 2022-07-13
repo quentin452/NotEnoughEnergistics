@@ -2,7 +2,6 @@ package com.github.vfyjxf.nee.processor;
 
 import com.github.vfyjxf.nee.NotEnoughEnergistics;
 import cpw.mods.fml.common.Loader;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +14,6 @@ public class RecipeProcessor {
         NotEnoughEnergistics.logger.info("-----Not Enough Energistics Init Start-----");
         NotEnoughEnergistics.logger.info("Install Vanilla Support");
         recipeProcessors.add(new VanillaRecipeProcessor());
-
 
         if (Loader.isModLoaded("appliedenergistics2")) {
             NotEnoughEnergistics.logger.info("Found Applied Energistics 2,install Applied Energistics 2 support");
@@ -74,8 +72,11 @@ public class RecipeProcessor {
             NotEnoughEnergistics.logger.info("Found GT++, install GT++ support");
             recipeProcessors.add(new GTPPRecipeProcessor());
         }
+        if (Loader.isModLoaded("GoodGenerator")) {
+            NotEnoughEnergistics.logger.info("Found Good Generator, install Good Generator support");
+            recipeProcessors.add(new GoodGeneratorRecipeProcessor());
+        }
 
         NotEnoughEnergistics.logger.info("-----Not Enough Energistics Init  Finished-----");
     }
-
 }

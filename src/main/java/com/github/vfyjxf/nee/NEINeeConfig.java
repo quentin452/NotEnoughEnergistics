@@ -10,27 +10,22 @@ import codechicken.nei.api.IConfigureNEI;
 import codechicken.nei.guihook.GuiContainerManager;
 import codechicken.nei.guihook.IContainerInputHandler;
 import com.github.vfyjxf.nee.client.GuiEventHandler;
-import com.github.vfyjxf.nee.client.NEEContainerDrawHandler;
-import com.github.vfyjxf.nee.config.NEEConfig;
 import com.github.vfyjxf.nee.nei.NEECraftingHandler;
 import com.github.vfyjxf.nee.nei.NEECraftingHelper;
 import com.github.vfyjxf.nee.processor.IRecipeProcessor;
 import com.github.vfyjxf.nee.processor.RecipeProcessor;
 import cpw.mods.fml.common.Loader;
+import java.util.*;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal;
 import org.lwjgl.input.Keyboard;
 import thaumicenergistics.client.gui.GuiKnowledgeInscriber;
 import wanion.avaritiaddons.block.extremeautocrafter.GuiExtremeAutoCrafter;
 
-import java.util.*;
-
-
 public class NEINeeConfig implements IConfigureNEI {
 
-    private static final List<Class<?>> transferBlacklist = new ArrayList<>(Arrays.asList(
-            GuiInterface.class, GuiPatternTerm.class
-    ));
+    private static final List<Class<?>> transferBlacklist =
+            new ArrayList<>(Arrays.asList(GuiInterface.class, GuiPatternTerm.class));
 
     @Override
     public void loadConfig() {
@@ -41,13 +36,11 @@ public class NEINeeConfig implements IConfigureNEI {
 
         registerGuiHandler();
 
-        Set<String> defaultIdentifiers = new HashSet<>(
-                Arrays.asList("crafting", "crafting2x2", "brewing", "smelting", "fuel", null)
-        );
+        Set<String> defaultIdentifiers =
+                new HashSet<>(Arrays.asList("crafting", "crafting2x2", "brewing", "smelting", "fuel", null));
         Set<String> identifiers = new HashSet<>(defaultIdentifiers);
 
-        RecipeProcessor.recipeProcessors
-                .stream()
+        RecipeProcessor.recipeProcessors.stream()
                 .map(IRecipeProcessor::getAllOverlayIdentifier)
                 .forEach(identifiers::addAll);
 
@@ -86,7 +79,7 @@ public class NEINeeConfig implements IConfigureNEI {
 
     private void registerGuiHandler() {
         API.registerNEIGuiHandler(GuiEventHandler.instance);
-        //disable MouseScrollTransfer in some gui
+        // disable MouseScrollTransfer in some gui
         replaceNEIController();
     }
 
@@ -100,16 +93,15 @@ public class NEINeeConfig implements IConfigureNEI {
         }
         if (controllerIndex > 0) {
             GuiContainerManager.inputHandlers.remove(controllerIndex);
-            GuiContainerManager.inputHandlers.add(controllerIndex,
-                    new NEIController() {
-                        @Override
-                        public boolean mouseScrolled(GuiContainer gui, int mouseX, int mouseY, int scrolled) {
-                            if (transferBlacklist.contains(gui.getClass())) {
-                                return false;
-                            }
-                            return super.mouseScrolled(gui, mouseX, mouseY, scrolled);
-                        }
-                    });
+            GuiContainerManager.inputHandlers.add(controllerIndex, new NEIController() {
+                @Override
+                public boolean mouseScrolled(GuiContainer gui, int mouseX, int mouseY, int scrolled) {
+                    if (transferBlacklist.contains(gui.getClass())) {
+                        return false;
+                    }
+                    return super.mouseScrolled(gui, mouseX, mouseY, scrolled);
+                }
+            });
             NotEnoughEnergistics.logger.info("NEIController replaced success");
         }
     }
@@ -140,8 +132,8 @@ public class NEINeeConfig implements IConfigureNEI {
             API.registerGuiOverlay(GuiKnowledgeInscriber.class, "arcaneshapedrecipes");
             API.registerGuiOverlay(GuiKnowledgeInscriber.class, "arcaneshapelessrecipes");
             API.registerGuiOverlayHandler(GuiKnowledgeInscriber.class, new NEECraftingHandler(), "arcaneshapedrecipes");
-            API.registerGuiOverlayHandler(GuiKnowledgeInscriber.class, new NEECraftingHandler(), "arcaneshapelessrecipes");
-
+            API.registerGuiOverlayHandler(
+                    GuiKnowledgeInscriber.class, new NEECraftingHandler(), "arcaneshapelessrecipes");
         }
     }
 
@@ -153,7 +145,7 @@ public class NEINeeConfig implements IConfigureNEI {
         }
         identifiers.remove("crafting");
         identifiers.remove("crafting2x2");
-        //PatternTermEx Support
+        // PatternTermEx Support
         for (String ident : identifiers) {
             API.registerGuiOverlay(GuiPatternTermEx.class, ident);
             API.registerGuiOverlayHandler(GuiPatternTermEx.class, new NEECraftingHandler(), ident);

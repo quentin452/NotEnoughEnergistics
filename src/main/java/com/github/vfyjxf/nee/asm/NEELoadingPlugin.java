@@ -1,7 +1,6 @@
 package com.github.vfyjxf.nee.asm;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-
 import java.util.Map;
 
 @IFMLLoadingPlugin.Name("NEELoadingPlugin")
@@ -10,9 +9,7 @@ import java.util.Map;
 public class NEELoadingPlugin implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
-        return new String[]{
-                "com.github.vfyjxf.nee.asm.NEEClassTransformer"
-        };
+        return new String[] {"com.github.vfyjxf.nee.asm.NEEClassTransformer"};
     }
 
     @Override
@@ -26,9 +23,7 @@ public class NEELoadingPlugin implements IFMLLoadingPlugin {
     }
 
     @Override
-    public void injectData(Map<String, Object> data) {
-
-    }
+    public void injectData(Map<String, Object> data) {}
 
     @Override
     public String getAccessTransformerClass() {
