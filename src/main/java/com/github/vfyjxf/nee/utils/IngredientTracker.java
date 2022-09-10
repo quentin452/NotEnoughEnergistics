@@ -88,13 +88,10 @@ public class IngredientTracker {
                             ReflectionHelper.findField(ItemRepo.class, "list").get(repo);
                 } else {
                     // wireless crafting terminal support
-                    net.p455w0rd.wirelesscraftingterminal.client.me.ItemRepo repo =
-                            (net.p455w0rd.wirelesscraftingterminal.client.me.ItemRepo)
-                                    ReflectionHelper.findField(GuiWirelessCraftingTerminal.class, "repo")
-                                            .get(termGui);
-                    list = (IItemList<IAEItemStack>) ReflectionHelper.findField(
-                                    net.p455w0rd.wirelesscraftingterminal.client.me.ItemRepo.class, "list")
-                            .get(repo);
+                    ItemRepo repo = (ItemRepo) ReflectionHelper.findField(GuiWirelessCraftingTerminal.class, "repo")
+                            .get(termGui);
+                    list = (IItemList<IAEItemStack>)
+                            ReflectionHelper.findField(ItemRepo.class, "list").get(repo);
                 }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -124,13 +121,10 @@ public class IngredientTracker {
                     }
                 } else {
                     // wireless crafting terminal support
-                    net.p455w0rd.wirelesscraftingterminal.client.me.ItemRepo repo =
-                            (net.p455w0rd.wirelesscraftingterminal.client.me.ItemRepo)
-                                    ReflectionHelper.findField(GuiWirelessCraftingTerminal.class, "repo")
-                                            .get(termGui);
-                    for (IAEItemStack stack : (IItemList<IAEItemStack>) ReflectionHelper.findField(
-                                    net.p455w0rd.wirelesscraftingterminal.client.me.ItemRepo.class, "list")
-                            .get(repo)) {
+                    ItemRepo repo = (ItemRepo) ReflectionHelper.findField(GuiWirelessCraftingTerminal.class, "repo")
+                            .get(termGui);
+                    for (IAEItemStack stack : (IItemList<IAEItemStack>)
+                            ReflectionHelper.findField(ItemRepo.class, "list").get(repo)) {
                         list.add(stack.copy());
                     }
                 }

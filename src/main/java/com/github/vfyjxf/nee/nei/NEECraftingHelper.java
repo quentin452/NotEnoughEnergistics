@@ -214,10 +214,7 @@ public class NEECraftingHelper implements IOverlayHandler {
         if (gui instanceof GuiCraftingTerm) {
             return slot instanceof SlotCraftingMatrix || slot instanceof SlotFakeCraftingMatrix;
         } else if (GuiUtils.isGuiWirelessCrafting(gui)) {
-            return slot instanceof net.p455w0rd.wirelesscraftingterminal.common.container.slot.SlotCraftingMatrix
-                    || slot
-                            instanceof
-                            net.p455w0rd.wirelesscraftingterminal.common.container.slot.SlotFakeCraftingMatrix;
+            return slot instanceof SlotCraftingMatrix || slot instanceof SlotFakeCraftingMatrix;
         }
         return false;
     }
@@ -274,7 +271,7 @@ public class NEECraftingHelper implements IOverlayHandler {
                             || GuiUtils.isGuiWirelessCrafting(guiRecipe.firstGui);
                     if (isCraftingTerm || isPatternTerm) {
                         int recipesPerPage = 2;
-                        IRecipeHandler handler = guiRecipe.currenthandlers.get(guiRecipe.recipetype);
+                        IRecipeHandler handler = (IRecipeHandler) guiRecipe.currenthandlers.get(guiRecipe.recipetype);
                         if (isGtnhNei) {
                             try {
                                 recipesPerPage = (int) ReflectionHelper.findMethod(
@@ -291,7 +288,7 @@ public class NEECraftingHelper implements IOverlayHandler {
                             Minecraft.getMinecraft().displayGuiScreen(guiRecipe.firstGui);
                             overlayHandler.overlayRecipe(
                                     guiRecipe.firstGui,
-                                    guiRecipe.currenthandlers.get(guiRecipe.recipetype),
+                                    (IRecipeHandler) guiRecipe.currenthandlers.get(guiRecipe.recipetype),
                                     recipe,
                                     NEIClientUtils.shiftKey());
                             event.setCanceled(true);
