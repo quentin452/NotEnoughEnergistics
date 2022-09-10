@@ -1,11 +1,11 @@
 package com.github.vfyjxf.nee.container;
 
 import appeng.api.storage.ITerminalHost;
+import appeng.container.implementations.ContainerCraftConfirm;
 import appeng.util.Platform;
 import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm;
 
 public class WCTContainerCraftingConfirm extends ContainerCraftConfirm {
 

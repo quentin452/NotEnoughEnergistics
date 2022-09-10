@@ -83,7 +83,7 @@ public class NEEContainerDrawHandler {
             if (this.isCraftingTerm || this.isPatternTerm) {
                 GuiRecipe gui = (GuiRecipe) event.gui;
 
-                IRecipeHandler currentHandler = gui.currenthandlers.get(gui.recipetype);
+                IRecipeHandler currentHandler = (IRecipeHandler) gui.currenthandlers.get(gui.recipetype);
 
                 if (NEECraftingHandler.isCraftingTableRecipe(currentHandler)) {
 
@@ -189,7 +189,7 @@ public class NEEContainerDrawHandler {
         for (int i = 0; i < overlayButtons.size(); i++) {
             GuiButton overlayButton = overlayButtons.get(i);
             if (overlayButton.visible) {
-                IRecipeHandler handler = gui.currenthandlers.get(gui.recipetype);
+                IRecipeHandler handler = (IRecipeHandler) gui.currenthandlers.get(gui.recipetype);
                 int recipeIndex = -1;
                 if (isGtnhNei) {
                     try {
