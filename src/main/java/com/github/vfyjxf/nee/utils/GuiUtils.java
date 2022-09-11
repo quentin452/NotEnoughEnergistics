@@ -16,98 +16,109 @@ import net.minecraft.inventory.Slot;
  */
 public class GuiUtils {
 
-    public static boolean isPatternTermExGui(GuiScreen container) {
+    private static Class<?> guiPatternTermExClass;
+    private static Class<?> containerPatternTermExClass;
+    private static Class<?> guiWirelessCraftingTerminalClass;
+    private static Class<?> containerWirelessCraftingTerminalClass;
+    private static Class<?> wirelessContainerCraftConfirmClass;
+    private static Class<?> wirelessGuiCraftConfirmClass;
+    private static Class<?> wctContainerCraftingConfirmClass;
+    private static Class<?> wirelessTerminalGuiObjClass;
+
+    static {
         try {
-            Class<?> patternTermExClz = Class.forName("appeng.client.gui.implementations.GuiPatternTermEx");
-            return patternTermExClz.isInstance(container);
-        } catch (ClassNotFoundException e) {
-            return false;
+            guiPatternTermExClass = Class.forName("appeng.client.gui.implementations.GuiPatternTermEx");
+        } catch (ClassNotFoundException ignored) {}
+        try {
+            containerPatternTermExClass = Class.forName("appeng.container.implementations.ContainerPatternTermEx");
+        } catch (ClassNotFoundException ignored) {}
+        try {
+            guiWirelessCraftingTerminalClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal");
+        } catch (ClassNotFoundException ignored) {}
+        try {
+            containerWirelessCraftingTerminalClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal");
+        } catch (ClassNotFoundException ignored) {}
+        try {
+            wirelessContainerCraftConfirmClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm");
+        } catch (ClassNotFoundException ignored) {}
+        try {
+            wirelessGuiCraftConfirmClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm");
+        } catch (ClassNotFoundException ignored) {}
+        try {
+            wctContainerCraftingConfirmClass = Class.forName("com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm");// TODO isn't it in the same mod ?????
+        } catch (ClassNotFoundException ignored) {}
+        try {
+            wirelessTerminalGuiObjClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
+        } catch (ClassNotFoundException ignored) {}
+    }
+
+    public static boolean isPatternTermExGui(GuiScreen container) {
+        if (guiPatternTermExClass != null) {
+            return guiPatternTermExClass.isInstance(container);
         }
+        return false;
     }
 
     public static boolean isPatternTermExContainer(Container container) {
-        try {
-            Class<?> patternTermExClz = Class.forName("appeng.container.implementations.ContainerPatternTermEx");
-            return patternTermExClz.isInstance(container);
-        } catch (ClassNotFoundException e) {
-            return false;
+        if (containerPatternTermExClass != null) {
+            return containerPatternTermExClass.isInstance(container);
         }
-    }
-
-    public static boolean isCraftingSlot(Slot slot) {
-        Container container = Minecraft.getMinecraft().thePlayer.openContainer;
-        if (slot != null) {
-            if (container instanceof ContainerPatternTerm || GuiUtils.isPatternTermExContainer(container)) {
-                IContainerCraftingPacket cct = (IContainerCraftingPacket) container;
-                IInventory craftMatrix = cct.getInventoryByName("crafting");
-                return craftMatrix.equals(slot.inventory);
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
+        return false;
     }
 
     public static boolean isGuiWirelessCrafting(GuiScreen gui) {
-
-        try {
-            Class<?> guiWirelessCraftingClass =
-                    Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal");
-            return guiWirelessCraftingClass.isInstance(gui);
-        } catch (ClassNotFoundException e) {
-            return false;
+        if (guiWirelessCraftingTerminalClass != null) {
+            return guiWirelessCraftingTerminalClass.isInstance(gui);
         }
+        return false;
     }
 
     public static boolean isWirelessCraftingTermContainer(Container container) {
-        try {
-            Class<?> wirelessCraftingTermContainerClass = Class.forName(
-                    "net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal");
-            return wirelessCraftingTermContainerClass.isInstance(container);
-        } catch (ClassNotFoundException e) {
-            return false;
+        if (containerWirelessCraftingTerminalClass != null) {
+            return containerWirelessCraftingTerminalClass.isInstance(container);
         }
-    }
-
-    public static boolean isWirelessGuiCraftConfirm(GuiScreen gui) {
-        try {
-            Class<?> wirelessGuiCraftConfirmClass =
-                    Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm");
-            return wirelessGuiCraftConfirmClass.isInstance(gui);
-        } catch (ClassNotFoundException e) {
-            return false;
-        }
+        return false;
     }
 
     public static boolean isContainerWirelessCraftingConfirm(Container container) {
-        try {
-            Class<?> wirelessCraftingConfirmClass =
-                    Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm");
-            return wirelessCraftingConfirmClass.isInstance(container);
-        } catch (ClassNotFoundException e) {
-            return false;
+        if (wirelessContainerCraftConfirmClass != null) {
+            return wirelessContainerCraftConfirmClass.isInstance(container);
         }
+        return false;
+    }
+
+    public static boolean isWirelessGuiCraftConfirm(GuiScreen gui) {
+        if (wirelessGuiCraftConfirmClass != null) {
+            return wirelessGuiCraftConfirmClass.isInstance(gui);
+        }
+        return false;
     }
 
     public static boolean isWCTContainerCraftingConfirm(Container container) {
-        try {
-            Class<?> wctCraftingConfirmClass =
-                    Class.forName("com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm");
-            return wctCraftingConfirmClass.isInstance(container);
-        } catch (ClassNotFoundException e) {
-            return false;
+        if (wctContainerCraftingConfirmClass != null) {
+            return wctContainerCraftingConfirmClass.isInstance(container);
         }
+        return false;
     }
 
     public static boolean isWirelessTerminalGuiObject(Object guiObj) {
-        try {
-            Class<?> wirelessTerminalGuiObjClass =
-                    Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
+        if (wirelessTerminalGuiObjClass != null) {
             return wirelessTerminalGuiObjClass.isInstance(guiObj);
-        } catch (ClassNotFoundException e) {
+        }
+        return false;
+    }
+
+    public static boolean isCraftingSlot(Slot slot) {
+        if (slot == null) {
             return false;
         }
+        Container container = Minecraft.getMinecraft().thePlayer.openContainer;
+        if (!(container instanceof ContainerPatternTerm) && !GuiUtils.isPatternTermExContainer(container)) {
+            return false;
+        }
+        IContainerCraftingPacket cct = (IContainerCraftingPacket) container;
+        IInventory craftMatrix = cct.getInventoryByName("crafting");
+        return craftMatrix.equals(slot.inventory);
     }
 
     public static boolean isGuiCraftingTerm(GuiScreen guiScreen) {
