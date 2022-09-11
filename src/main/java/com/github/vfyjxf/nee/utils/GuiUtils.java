@@ -5,6 +5,7 @@ import appeng.client.gui.implementations.GuiCraftingTerm;
 import appeng.client.gui.implementations.GuiPatternTerm;
 import appeng.container.implementations.ContainerPatternTerm;
 import appeng.helpers.IContainerCraftingPacket;
+import com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.Container;
@@ -22,7 +23,6 @@ public class GuiUtils {
     private static Class<?> containerWirelessCraftingTerminalClass;
     private static Class<?> wirelessContainerCraftConfirmClass;
     private static Class<?> wirelessGuiCraftConfirmClass;
-    private static Class<?> wctContainerCraftingConfirmClass;
     private static Class<?> wirelessTerminalGuiObjClass;
 
     static {
@@ -43,9 +43,6 @@ public class GuiUtils {
         } catch (ClassNotFoundException ignored) {}
         try {
             wirelessGuiCraftConfirmClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm");
-        } catch (ClassNotFoundException ignored) {}
-        try {
-            wctContainerCraftingConfirmClass = Class.forName("com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm");// TODO isn't it in the same mod ?????
         } catch (ClassNotFoundException ignored) {}
         try {
             wirelessTerminalGuiObjClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
@@ -95,10 +92,7 @@ public class GuiUtils {
     }
 
     public static boolean isWCTContainerCraftingConfirm(Container container) {
-        if (wctContainerCraftingConfirmClass != null) {
-            return wctContainerCraftingConfirmClass.isInstance(container);
-        }
-        return false;
+        return container instanceof WCTContainerCraftingConfirm;
     }
 
     public static boolean isWirelessTerminalGuiObject(Object guiObj) {
