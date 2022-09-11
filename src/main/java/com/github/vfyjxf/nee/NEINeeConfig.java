@@ -129,7 +129,6 @@ public class NEINeeConfig implements IConfigureNEI {
         }
         if (Loader.isModLoaded("thaumcraftneiplugin")) {
             NotEnoughEnergistics.logger.info("Install ThaumicEnergistics support");
-
             API.registerGuiOverlay(GuiKnowledgeInscriber.class, "arcaneshapedrecipes");
             API.registerGuiOverlay(GuiKnowledgeInscriber.class, "arcaneshapelessrecipes");
             API.registerGuiOverlayHandler(GuiKnowledgeInscriber.class, new NEECraftingHandler(), "arcaneshapedrecipes");
@@ -161,7 +160,6 @@ public class NEINeeConfig implements IConfigureNEI {
         }
         if (Loader.isModLoaded("avaritiaddons")) {
             NotEnoughEnergistics.logger.info("Install Avaritiaddons support");
-
             API.registerGuiOverlay(GuiExtremeAutoCrafter.class, "extreme");
             API.registerGuiOverlayHandler(GuiExtremeAutoCrafter.class, new NEECraftingHandler(), "extreme");
         }

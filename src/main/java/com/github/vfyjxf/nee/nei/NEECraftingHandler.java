@@ -34,6 +34,25 @@ public class NEECraftingHandler implements IOverlayHandler {
     public static Map<String, PositionedStack> ingredients = new HashMap<>();
 
     public static final NEECraftingHandler INSTANCE = new NEECraftingHandler();
+    private static Class<?> knowledgeInscriberClz;
+    private static Class<?> itemAspectClz;
+    private static Class<?> guiExtremeAutoCrafterClz;
+
+    static {
+        try {
+            knowledgeInscriberClz = Class.forName("thaumicenergistics.client.gui.GuiKnowledgeInscriber");
+        } catch (ClassNotFoundException ignored) {
+        }
+        try {
+            itemAspectClz = Class.forName("com.djgiannuzz.thaumcraftneiplugin.items.ItemAspect");
+        } catch (ClassNotFoundException ignored) {
+        }
+        try {
+            guiExtremeAutoCrafterClz =
+                    Class.forName("wanion.avaritiaddons.block.extremeautocrafter.GuiExtremeAutoCrafter");
+        } catch (ClassNotFoundException ignored) {
+        }
+    }
 
     public static boolean isCraftingTableRecipe(IRecipeHandler recipe) {
         if (recipe instanceof TemplateRecipeHandler) {
@@ -66,9 +85,7 @@ public class NEECraftingHandler implements IOverlayHandler {
     private PacketNEIPatternRecipe packProcessRecipe(IRecipeHandler recipe, int recipeIndex) {
         final NBTTagCompound recipeInputs = new NBTTagCompound();
         NBTTagCompound recipeOutputs = new NBTTagCompound();
-        String identifier = recipe instanceof TemplateRecipeHandler
-                ? ((TemplateRecipeHandler) recipe).getOverlayIdentifier()
-                : NULL_IDENTIFIER;
+        String identifier = recipe instanceof TemplateRecipeHandler ? recipe.getOverlayIdentifier() : NULL_IDENTIFIER;
         if (identifier == null) {
             identifier = NULL_IDENTIFIER;
         }
@@ -198,33 +215,18 @@ public class NEECraftingHandler implements IOverlayHandler {
     }
 
     private void knowledgeInscriberHandler(GuiContainer firstGui, IRecipeHandler recipe, int recipeIndex) {
-        Class<?> knowledgeInscriberClz;
-        try {
-            knowledgeInscriberClz = Class.forName("thaumicenergistics.client.gui.GuiKnowledgeInscriber");
-        } catch (ClassNotFoundException e) {
-            return;
-        }
-        if (knowledgeInscriberClz.isInstance(firstGui)) {
+        if (knowledgeInscriberClz != null && knowledgeInscriberClz.isInstance(firstGui)) {
             NEENetworkHandler.getInstance().sendToServer(packetArcaneRecipe(recipe, recipeIndex));
         }
     }
 
     private PacketArcaneRecipe packetArcaneRecipe(IRecipeHandler recipe, int recipeIndex) {
-        final Class<?> itemAspectClz;
-        Class<?> iA = null;
-        try {
-            iA = Class.forName("com.djgiannuzz.thaumcraftneiplugin.items.ItemAspect");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        itemAspectClz = iA;
         final NBTTagCompound recipeInputs = new NBTTagCompound();
         List<PositionedStack> ingredients = recipe.getIngredientStacks(recipeIndex);
         if (itemAspectClz != null) {
             ingredients.removeIf(positionedStack -> itemAspectClz.isInstance(positionedStack.item.getItem()));
         }
         for (PositionedStack positionedStack : ingredients) {
-
             if (positionedStack.items != null && positionedStack.items.length > 0) {
                 int slotIndex = getSlotIndex(positionedStack.relx * 100 + positionedStack.rely);
                 final ItemStack[] currentStackList = positionedStack.items;
@@ -241,14 +243,7 @@ public class NEECraftingHandler implements IOverlayHandler {
     }
 
     private void extremeAutoCrafterHandler(GuiContainer firstGui, IRecipeHandler recipe, int recipeIndex) {
-        final Class<?> guiExtremeAutoCrafterClz;
-        try {
-            guiExtremeAutoCrafterClz =
-                    Class.forName("wanion.avaritiaddons.block.extremeautocrafter.GuiExtremeAutoCrafter");
-        } catch (ClassNotFoundException e) {
-            return;
-        }
-        if (guiExtremeAutoCrafterClz.isInstance(firstGui)) {
+        if (guiExtremeAutoCrafterClz != null && guiExtremeAutoCrafterClz.isInstance(firstGui)) {
             NEENetworkHandler.getInstance().sendToServer(packetExtremeRecipe(recipe, recipeIndex));
         }
     }
