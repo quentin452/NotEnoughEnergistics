@@ -28,25 +28,37 @@ public class GuiUtils {
     static {
         try {
             guiPatternTermExClass = Class.forName("appeng.client.gui.implementations.GuiPatternTermEx");
-        } catch (ClassNotFoundException ignored) {}
+        } catch (ClassNotFoundException ignored) {
+        }
         try {
             containerPatternTermExClass = Class.forName("appeng.container.implementations.ContainerPatternTermEx");
-        } catch (ClassNotFoundException ignored) {}
+        } catch (ClassNotFoundException ignored) {
+        }
         try {
-            guiWirelessCraftingTerminalClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal");
-        } catch (ClassNotFoundException ignored) {}
+            guiWirelessCraftingTerminalClass =
+                    Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal");
+        } catch (ClassNotFoundException ignored) {
+        }
         try {
-            containerWirelessCraftingTerminalClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal");
-        } catch (ClassNotFoundException ignored) {}
+            containerWirelessCraftingTerminalClass = Class.forName(
+                    "net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal");
+        } catch (ClassNotFoundException ignored) {
+        }
         try {
-            wirelessContainerCraftConfirmClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm");
-        } catch (ClassNotFoundException ignored) {}
+            wirelessContainerCraftConfirmClass =
+                    Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm");
+        } catch (ClassNotFoundException ignored) {
+        }
         try {
-            wirelessGuiCraftConfirmClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm");
-        } catch (ClassNotFoundException ignored) {}
+            wirelessGuiCraftConfirmClass =
+                    Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm");
+        } catch (ClassNotFoundException ignored) {
+        }
         try {
-            wirelessTerminalGuiObjClass = Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
-        } catch (ClassNotFoundException ignored) {}
+            wirelessTerminalGuiObjClass =
+                    Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
+        } catch (ClassNotFoundException ignored) {
+        }
     }
 
     public static boolean isPatternTermExGui(GuiScreen container) {
