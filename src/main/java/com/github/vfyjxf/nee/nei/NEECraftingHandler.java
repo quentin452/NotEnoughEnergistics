@@ -3,6 +3,7 @@ package com.github.vfyjxf.nee.nei;
 import static com.github.vfyjxf.nee.processor.RecipeProcessor.NULL_IDENTIFIER;
 
 import appeng.client.gui.implementations.GuiPatternTerm;
+import appeng.client.gui.implementations.GuiPatternTermEx;
 import appeng.util.Platform;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IOverlayHandler;
@@ -16,7 +17,6 @@ import com.github.vfyjxf.nee.network.packet.PacketExtremeRecipe;
 import com.github.vfyjxf.nee.network.packet.PacketNEIPatternRecipe;
 import com.github.vfyjxf.nee.processor.IRecipeProcessor;
 import com.github.vfyjxf.nee.processor.RecipeProcessor;
-import com.github.vfyjxf.nee.utils.GuiUtils;
 import com.github.vfyjxf.nee.utils.ItemUtils;
 import java.util.*;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -66,7 +66,7 @@ public class NEECraftingHandler implements IOverlayHandler {
 
     @Override
     public void overlayRecipe(GuiContainer firstGui, IRecipeHandler recipe, int recipeIndex, boolean shift) {
-        if (firstGui instanceof GuiPatternTerm || GuiUtils.isPatternTermExGui(firstGui)) {
+        if (firstGui instanceof GuiPatternTerm || firstGui instanceof GuiPatternTermEx) {
             NEENetworkHandler.getInstance().sendToServer(packRecipe(recipe, recipeIndex));
         } else {
             knowledgeInscriberHandler(firstGui, recipe, recipeIndex);

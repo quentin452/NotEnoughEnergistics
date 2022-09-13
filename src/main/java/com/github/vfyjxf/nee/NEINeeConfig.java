@@ -138,11 +138,6 @@ public class NEINeeConfig implements IConfigureNEI {
     }
 
     private void installPatternTerminalExSupport(Set<String> identifiers) {
-        try {
-            Class.forName("appeng.client.gui.implementations.GuiPatternTermEx");
-        } catch (ClassNotFoundException e) {
-            return;
-        }
         identifiers.remove("crafting");
         identifiers.remove("crafting2x2");
         // PatternTermEx Support

@@ -3,7 +3,9 @@ package com.github.vfyjxf.nee.utils;
 import appeng.client.gui.implementations.GuiCraftConfirm;
 import appeng.client.gui.implementations.GuiCraftingTerm;
 import appeng.client.gui.implementations.GuiPatternTerm;
+import appeng.client.gui.implementations.GuiPatternTermEx;
 import appeng.container.implementations.ContainerPatternTerm;
+import appeng.container.implementations.ContainerPatternTermEx;
 import appeng.helpers.IContainerCraftingPacket;
 import com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm;
 import net.minecraft.client.Minecraft;
@@ -17,8 +19,6 @@ import net.minecraft.inventory.Slot;
  */
 public class GuiUtils {
 
-    private static Class<?> guiPatternTermExClass;
-    private static Class<?> containerPatternTermExClass;
     private static Class<?> guiWirelessCraftingTerminalClass;
     private static Class<?> containerWirelessCraftingTerminalClass;
     private static Class<?> wirelessContainerCraftConfirmClass;
@@ -26,14 +26,6 @@ public class GuiUtils {
     private static Class<?> wirelessTerminalGuiObjClass;
 
     static {
-        try {
-            guiPatternTermExClass = Class.forName("appeng.client.gui.implementations.GuiPatternTermEx");
-        } catch (ClassNotFoundException ignored) {
-        }
-        try {
-            containerPatternTermExClass = Class.forName("appeng.container.implementations.ContainerPatternTermEx");
-        } catch (ClassNotFoundException ignored) {
-        }
         try {
             guiWirelessCraftingTerminalClass =
                     Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal");
@@ -59,20 +51,6 @@ public class GuiUtils {
                     Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
         } catch (ClassNotFoundException ignored) {
         }
-    }
-
-    public static boolean isPatternTermExGui(GuiScreen container) {
-        if (guiPatternTermExClass != null) {
-            return guiPatternTermExClass.isInstance(container);
-        }
-        return false;
-    }
-
-    public static boolean isPatternTermExContainer(Container container) {
-        if (containerPatternTermExClass != null) {
-            return containerPatternTermExClass.isInstance(container);
-        }
-        return false;
     }
 
     public static boolean isGuiWirelessCrafting(GuiScreen gui) {
@@ -119,7 +97,7 @@ public class GuiUtils {
             return false;
         }
         Container container = Minecraft.getMinecraft().thePlayer.openContainer;
-        if (!(container instanceof ContainerPatternTerm) && !GuiUtils.isPatternTermExContainer(container)) {
+        if (!(container instanceof ContainerPatternTerm) && !(container instanceof ContainerPatternTermEx)) {
             return false;
         }
         IContainerCraftingPacket cct = (IContainerCraftingPacket) container;
@@ -132,7 +110,7 @@ public class GuiUtils {
     }
 
     public static boolean isPatternTerm(GuiScreen guiScreen) {
-        return guiScreen instanceof GuiPatternTerm || isPatternTermExGui(guiScreen);
+        return guiScreen instanceof GuiPatternTerm || guiScreen instanceof GuiPatternTermEx;
     }
 
     public static boolean isGuiCraftConfirm(GuiScreen gui) {
