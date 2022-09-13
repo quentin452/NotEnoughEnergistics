@@ -8,6 +8,7 @@ import appeng.container.implementations.ContainerPatternTerm;
 import appeng.container.implementations.ContainerPatternTermEx;
 import appeng.helpers.IContainerCraftingPacket;
 import com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm;
+import cpw.mods.fml.common.Loader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.inventory.Container;
@@ -19,66 +20,27 @@ import net.minecraft.inventory.Slot;
  */
 public class GuiUtils {
 
-    private static Class<?> guiWirelessCraftingTerminalClass;
-    private static Class<?> containerWirelessCraftingTerminalClass;
-    private static Class<?> wirelessContainerCraftConfirmClass;
-    private static Class<?> wirelessGuiCraftConfirmClass;
-    private static Class<?> wirelessTerminalGuiObjClass;
-
-    static {
-        try {
-            guiWirelessCraftingTerminalClass =
-                    Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal");
-        } catch (ClassNotFoundException ignored) {
-        }
-        try {
-            containerWirelessCraftingTerminalClass = Class.forName(
-                    "net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal");
-        } catch (ClassNotFoundException ignored) {
-        }
-        try {
-            wirelessContainerCraftConfirmClass =
-                    Class.forName("net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm");
-        } catch (ClassNotFoundException ignored) {
-        }
-        try {
-            wirelessGuiCraftConfirmClass =
-                    Class.forName("net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm");
-        } catch (ClassNotFoundException ignored) {
-        }
-        try {
-            wirelessTerminalGuiObjClass =
-                    Class.forName("net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject");
-        } catch (ClassNotFoundException ignored) {
-        }
-    }
+    private static final boolean isWirelessCraftingTerminalModLoaded = Loader.isModLoaded(ModIDs.WCT);
 
     public static boolean isGuiWirelessCrafting(GuiScreen gui) {
-        if (guiWirelessCraftingTerminalClass != null) {
-            return guiWirelessCraftingTerminalClass.isInstance(gui);
-        }
-        return false;
+        if (!isWirelessCraftingTerminalModLoaded) return false;
+        return gui instanceof net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTerminal;
     }
 
     public static boolean isWirelessCraftingTermContainer(Container container) {
-        if (containerWirelessCraftingTerminalClass != null) {
-            return containerWirelessCraftingTerminalClass.isInstance(container);
-        }
-        return false;
+        if (!isWirelessCraftingTerminalModLoaded) return false;
+        return container
+                instanceof net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal;
     }
 
     public static boolean isContainerWirelessCraftingConfirm(Container container) {
-        if (wirelessContainerCraftConfirmClass != null) {
-            return wirelessContainerCraftConfirmClass.isInstance(container);
-        }
-        return false;
+        if (!isWirelessCraftingTerminalModLoaded) return false;
+        return container instanceof net.p455w0rd.wirelesscraftingterminal.common.container.ContainerCraftConfirm;
     }
 
     public static boolean isWirelessGuiCraftConfirm(GuiScreen gui) {
-        if (wirelessGuiCraftConfirmClass != null) {
-            return wirelessGuiCraftConfirmClass.isInstance(gui);
-        }
-        return false;
+        if (!isWirelessCraftingTerminalModLoaded) return false;
+        return gui instanceof net.p455w0rd.wirelesscraftingterminal.client.gui.GuiCraftConfirm;
     }
 
     public static boolean isWCTContainerCraftingConfirm(Container container) {
@@ -86,10 +48,8 @@ public class GuiUtils {
     }
 
     public static boolean isWirelessTerminalGuiObject(Object guiObj) {
-        if (wirelessTerminalGuiObjClass != null) {
-            return wirelessTerminalGuiObjClass.isInstance(guiObj);
-        }
-        return false;
+        if (!isWirelessCraftingTerminalModLoaded) return false;
+        return guiObj instanceof net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject;
     }
 
     public static boolean isCraftingSlot(Slot slot) {
