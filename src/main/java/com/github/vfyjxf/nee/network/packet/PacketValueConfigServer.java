@@ -8,7 +8,6 @@ import appeng.container.slot.SlotRestrictedInput;
 import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
 import com.github.vfyjxf.nee.container.ContainerPatternInterface;
 import com.github.vfyjxf.nee.network.NEENetworkHandler;
-import com.github.vfyjxf.nee.utils.GuiUtils;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
@@ -73,10 +72,8 @@ public class PacketValueConfigServer implements IMessage {
                     tile.updateCraftingList();
                 }
             } else if ("PatternInterface.check".equals(message.name)) {
-                if (container instanceof AEBaseContainer || GuiUtils.isWirelessCraftingTermContainer(container)) {
-                    IGrid grid = container instanceof AEBaseContainer
-                            ? message.getNetwork((AEBaseContainer) container)
-                            : message.getNetwork((ContainerWirelessCraftingTerminal) container);
+                if (container instanceof AEBaseContainer) {
+                    IGrid grid = message.getNetwork((AEBaseContainer) container);
                     if (grid != null) {
 
                         for (IGridNode gridNode : grid.getMachines(TilePatternInterface.class)) {
