@@ -1,9 +1,8 @@
 package com.github.vfyjxf.nee.nei;
 
 import static com.github.vfyjxf.nee.processor.RecipeProcessor.NULL_IDENTIFIER;
+import static com.github.vfyjxf.nee.utils.GuiUtils.isPatternTerm;
 
-import appeng.client.gui.implementations.GuiPatternTerm;
-import appeng.client.gui.implementations.GuiPatternTermEx;
 import appeng.util.Platform;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IOverlayHandler;
@@ -18,6 +17,9 @@ import com.github.vfyjxf.nee.network.packet.PacketNEIPatternRecipe;
 import com.github.vfyjxf.nee.processor.IRecipeProcessor;
 import com.github.vfyjxf.nee.processor.RecipeProcessor;
 import com.github.vfyjxf.nee.utils.ItemUtils;
+import com.github.vfyjxf.nee.utils.ModIDs;
+import com.glodblock.github.nei.FluidPatternTerminalRecipeTransferHandler;
+import cpw.mods.fml.common.Optional;
 import java.util.*;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.item.ItemStack;
@@ -64,10 +66,16 @@ public class NEECraftingHandler implements IOverlayHandler {
         }
     }
 
+    @Optional.Method(modid = ModIDs.FC)
+    private void fluidCraftOverlayRecipe(GuiContainer firstGui, IRecipeHandler recipe, int recipeIndex, boolean shift) {
+        FluidPatternTerminalRecipeTransferHandler.INSTANCE.overlayRecipe(firstGui, recipe, recipeIndex, shift);
+    }
+
     @Override
     public void overlayRecipe(GuiContainer firstGui, IRecipeHandler recipe, int recipeIndex, boolean shift) {
-        if (firstGui instanceof GuiPatternTerm || firstGui instanceof GuiPatternTermEx) {
+        if (isPatternTerm(firstGui)) {
             NEENetworkHandler.getInstance().sendToServer(packRecipe(recipe, recipeIndex));
+            fluidCraftOverlayRecipe(firstGui, recipe, recipeIndex, shift);
         } else {
             knowledgeInscriberHandler(firstGui, recipe, recipeIndex);
             extremeAutoCrafterHandler(firstGui, recipe, recipeIndex);
