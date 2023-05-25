@@ -69,7 +69,7 @@ public class PacketStackCountChange implements IMessage {
             for (int i = 0; i < Math.abs(message.getChangeCount()); i++) {
                 int currentStackSize = message.getChangeCount() > 0 ? currentSlot.getStack().stackSize + 1
                         : currentSlot.getStack().stackSize - 1;
-                if (currentStackSize <= currentSlot.getStack().getMaxStackSize() && currentStackSize > 0) {
+                if (currentStackSize > 0) {
                     ItemStack nextStack = currentSlot.getStack().copy();
                     nextStack.stackSize = currentStackSize;
                     currentSlot.putStack(nextStack);
