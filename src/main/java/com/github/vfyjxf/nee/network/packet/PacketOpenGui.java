@@ -4,11 +4,10 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
 import net.minecraft.tileentity.TileEntity;
 
-import appeng.container.AEBaseContainer;
-import appeng.container.ContainerOpenContext;
-
 import com.github.vfyjxf.nee.network.NEEGuiHandler;
 
+import appeng.container.AEBaseContainer;
+import appeng.container.ContainerOpenContext;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;

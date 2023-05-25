@@ -11,14 +11,14 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import wanion.avaritiaddons.block.extremeautocrafter.ContainerExtremeAutoCrafter;
-import wanion.avaritiaddons.block.extremeautocrafter.TileEntityExtremeAutoCrafter;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import io.netty.buffer.ByteBuf;
+import wanion.avaritiaddons.block.extremeautocrafter.ContainerExtremeAutoCrafter;
+import wanion.avaritiaddons.block.extremeautocrafter.TileEntityExtremeAutoCrafter;
 
 /**
  * @author vfyjxf

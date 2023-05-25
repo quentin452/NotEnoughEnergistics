@@ -3,11 +3,10 @@ package com.github.vfyjxf.nee.network.packet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
-import codechicken.nei.recipe.GuiRecipe;
-
 import com.github.vfyjxf.nee.nei.NEECraftingHelper;
 import com.github.vfyjxf.nee.utils.GuiUtils;
 
+import codechicken.nei.recipe.GuiRecipe;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;

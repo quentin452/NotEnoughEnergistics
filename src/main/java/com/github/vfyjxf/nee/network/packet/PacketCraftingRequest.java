@@ -24,6 +24,15 @@ import net.p455w0rd.wirelesscraftingterminal.reference.Reference;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
+import com.github.vfyjxf.nee.container.ContainerCraftingAmount;
+import com.github.vfyjxf.nee.container.ContainerCraftingConfirm;
+import com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm;
+import com.github.vfyjxf.nee.network.NEEGuiHandler;
+import com.github.vfyjxf.nee.utils.GuiUtils;
+import com.github.vfyjxf.nee.utils.ModIDs;
+import com.google.common.base.Optional;
+
 import appeng.api.AEApi;
 import appeng.api.config.SecurityPermissions;
 import appeng.api.networking.IGrid;
@@ -45,16 +54,6 @@ import appeng.core.AELog;
 import appeng.core.sync.GuiBridge;
 import appeng.util.Platform;
 import appeng.util.item.AEItemStack;
-
-import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
-import com.github.vfyjxf.nee.container.ContainerCraftingAmount;
-import com.github.vfyjxf.nee.container.ContainerCraftingConfirm;
-import com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm;
-import com.github.vfyjxf.nee.network.NEEGuiHandler;
-import com.github.vfyjxf.nee.utils.GuiUtils;
-import com.github.vfyjxf.nee.utils.ModIDs;
-import com.google.common.base.Optional;
-
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

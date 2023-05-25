@@ -9,6 +9,8 @@ import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
+
 import appeng.api.implementations.ICraftingPatternItem;
 import appeng.api.networking.crafting.ICraftingPatternDetails;
 import appeng.api.storage.data.IAEItemStack;
@@ -22,8 +24,6 @@ import appeng.tile.inventory.AppEngInternalInventory;
 import appeng.tile.inventory.IAEAppEngInventory;
 import appeng.tile.inventory.InvOperation;
 import appeng.util.Platform;
-
-import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
 
 public class ContainerPatternInterface extends AEBaseContainer implements IAEAppEngInventory {
 

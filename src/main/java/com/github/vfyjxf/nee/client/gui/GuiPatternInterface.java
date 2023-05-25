@@ -4,15 +4,15 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
-import appeng.client.gui.AEBaseGui;
-import appeng.container.slot.SlotRestrictedInput;
-
 import com.github.vfyjxf.nee.NotEnoughEnergistics;
 import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
 import com.github.vfyjxf.nee.client.gui.widgets.GuiImgButtonRemove;
 import com.github.vfyjxf.nee.container.ContainerPatternInterface;
 import com.github.vfyjxf.nee.network.NEENetworkHandler;
 import com.github.vfyjxf.nee.network.packet.PacketValueConfigServer;
+
+import appeng.client.gui.AEBaseGui;
+import appeng.container.slot.SlotRestrictedInput;
 
 public class GuiPatternInterface extends AEBaseGui {
 

@@ -12,16 +12,6 @@ import net.p455w0rd.wirelesscraftingterminal.api.IWirelessCraftingTermHandler;
 import net.p455w0rd.wirelesscraftingterminal.common.utils.RandomUtils;
 import net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject;
 
-import appeng.api.AEApi;
-import appeng.api.implementations.guiobjects.IPortableCell;
-import appeng.api.parts.IPart;
-import appeng.api.parts.IPartHost;
-import appeng.api.storage.ITerminalHost;
-import appeng.client.gui.implementations.GuiCraftConfirm;
-import appeng.container.AEBaseContainer;
-import appeng.container.ContainerOpenContext;
-import appeng.parts.reporting.PartCraftingTerminal;
-
 import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
 import com.github.vfyjxf.nee.client.gui.GuiCraftingAmount;
 import com.github.vfyjxf.nee.client.gui.GuiPatternInterface;
@@ -31,6 +21,15 @@ import com.github.vfyjxf.nee.container.ContainerPatternInterface;
 import com.github.vfyjxf.nee.container.WCTContainerCraftingConfirm;
 import com.github.vfyjxf.nee.utils.ModIDs;
 
+import appeng.api.AEApi;
+import appeng.api.implementations.guiobjects.IPortableCell;
+import appeng.api.parts.IPart;
+import appeng.api.parts.IPartHost;
+import appeng.api.storage.ITerminalHost;
+import appeng.client.gui.implementations.GuiCraftConfirm;
+import appeng.container.AEBaseContainer;
+import appeng.container.ContainerOpenContext;
+import appeng.parts.reporting.PartCraftingTerminal;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.network.IGuiHandler;

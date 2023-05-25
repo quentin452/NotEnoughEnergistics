@@ -3,11 +3,11 @@ package com.github.vfyjxf.nee.container;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 
+import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
+
 import appeng.api.storage.ITerminalHost;
 import appeng.container.implementations.ContainerCraftConfirm;
 import appeng.util.Platform;
-
-import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
 
 public class WCTContainerCraftingConfirm extends ContainerCraftConfirm {
 

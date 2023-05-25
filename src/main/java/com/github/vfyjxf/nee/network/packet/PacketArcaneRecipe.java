@@ -7,7 +7,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import thaumicenergistics.common.container.ContainerKnowledgeInscriber;
 import appeng.container.slot.SlotFakeCraftingMatrix;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
@@ -15,6 +14,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import io.netty.buffer.ByteBuf;
+import thaumicenergistics.common.container.ContainerKnowledgeInscriber;
 
 /**
  * @author vfyjxf
