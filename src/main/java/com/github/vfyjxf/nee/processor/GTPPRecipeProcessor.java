@@ -15,11 +15,11 @@ public class GTPPRecipeProcessor implements IRecipeProcessor {
 
     @Nonnull
     @Override
+    @SuppressWarnings("deprecation")
     public Set<String> getAllOverlayIdentifier() {
         HashSet<String> identifiers = new HashSet<>(Collections.singletonList("GTPP_Decayables"));
 
         // GTNH version of GT++ deprecated this, but other versions still use it
-        // noinspection deprecation
         for (GTPP_Recipe.GTPP_Recipe_Map_Internal gtppMap : GTPP_Recipe.GTPP_Recipe_Map_Internal.sMappingsEx) {
             if (gtppMap.mNEIAllowed) {
                 identifiers.add(gtppMap.mNEIName);

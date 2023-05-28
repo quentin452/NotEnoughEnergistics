@@ -7,18 +7,6 @@ import net.p455w0rd.wirelesscraftingterminal.client.gui.GuiWirelessCraftingTermi
 
 import org.lwjgl.input.Keyboard;
 
-import thaumicenergistics.client.gui.GuiKnowledgeInscriber;
-import wanion.avaritiaddons.block.extremeautocrafter.GuiExtremeAutoCrafter;
-import appeng.client.gui.implementations.GuiCraftingTerm;
-import appeng.client.gui.implementations.GuiInterface;
-import appeng.client.gui.implementations.GuiPatternTerm;
-import appeng.client.gui.implementations.GuiPatternTermEx;
-import codechicken.nei.NEIController;
-import codechicken.nei.api.API;
-import codechicken.nei.api.IConfigureNEI;
-import codechicken.nei.guihook.GuiContainerManager;
-import codechicken.nei.guihook.IContainerInputHandler;
-
 import com.github.vfyjxf.nee.client.GuiEventHandler;
 import com.github.vfyjxf.nee.nei.NEECraftingHandler;
 import com.github.vfyjxf.nee.nei.NEECraftingHelper;
@@ -29,7 +17,19 @@ import com.glodblock.github.client.gui.GuiFluidPatternExWireless;
 import com.glodblock.github.client.gui.GuiFluidPatternTerminal;
 import com.glodblock.github.client.gui.GuiFluidPatternTerminalEx;
 import com.glodblock.github.client.gui.GuiFluidPatternWireless;
+
+import appeng.client.gui.implementations.GuiCraftingTerm;
+import appeng.client.gui.implementations.GuiInterface;
+import appeng.client.gui.implementations.GuiPatternTerm;
+import appeng.client.gui.implementations.GuiPatternTermEx;
+import codechicken.nei.NEIController;
+import codechicken.nei.api.API;
+import codechicken.nei.api.IConfigureNEI;
+import codechicken.nei.guihook.GuiContainerManager;
+import codechicken.nei.guihook.IContainerInputHandler;
 import cpw.mods.fml.common.Loader;
+import thaumicenergistics.client.gui.GuiKnowledgeInscriber;
+import wanion.avaritiaddons.block.extremeautocrafter.GuiExtremeAutoCrafter;
 
 public class NEINeeConfig implements IConfigureNEI {
 

@@ -11,14 +11,13 @@ import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
 
-import codechicken.nei.PositionedStack;
-
 import com.github.vfyjxf.nee.NotEnoughEnergistics;
 import com.github.vfyjxf.nee.processor.IRecipeProcessor;
 import com.github.vfyjxf.nee.processor.RecipeProcessor;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import codechicken.nei.PositionedStack;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 

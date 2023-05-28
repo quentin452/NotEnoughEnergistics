@@ -15,11 +15,6 @@ import net.minecraftforge.client.event.GuiScreenEvent;
 
 import org.lwjgl.input.Keyboard;
 
-import codechicken.lib.gui.GuiDraw;
-import codechicken.nei.NEIClientConfig;
-import codechicken.nei.recipe.GuiRecipe;
-import codechicken.nei.recipe.IRecipeHandler;
-
 import com.github.vfyjxf.nee.config.NEEConfig;
 import com.github.vfyjxf.nee.nei.NEECraftingHandler;
 import com.github.vfyjxf.nee.nei.NEECraftingHelper;
@@ -27,6 +22,10 @@ import com.github.vfyjxf.nee.utils.GuiUtils;
 import com.github.vfyjxf.nee.utils.Ingredient;
 import com.github.vfyjxf.nee.utils.IngredientTracker;
 
+import codechicken.lib.gui.GuiDraw;
+import codechicken.nei.NEIClientConfig;
+import codechicken.nei.recipe.GuiRecipe;
+import codechicken.nei.recipe.IRecipeHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 

@@ -10,13 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-import appeng.container.ContainerOpenContext;
-import appeng.container.implementations.ContainerCraftingTerm;
-
 import com.github.vfyjxf.nee.container.ContainerCraftingAmount;
 import com.github.vfyjxf.nee.network.NEEGuiHandler;
 import com.github.vfyjxf.nee.utils.GuiUtils;
 
+import appeng.container.ContainerOpenContext;
+import appeng.container.implementations.ContainerCraftingTerm;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

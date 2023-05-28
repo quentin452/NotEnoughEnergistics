@@ -6,16 +6,15 @@ import net.minecraft.inventory.Slot;
 import net.p455w0rd.wirelesscraftingterminal.common.container.ContainerWirelessCraftingTerminal;
 import net.p455w0rd.wirelesscraftingterminal.helpers.WirelessTerminalGuiObject;
 
+import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
+import com.github.vfyjxf.nee.container.ContainerPatternInterface;
+import com.github.vfyjxf.nee.network.NEENetworkHandler;
+
 import appeng.api.networking.IGrid;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.IActionHost;
 import appeng.container.AEBaseContainer;
 import appeng.container.slot.SlotRestrictedInput;
-
-import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
-import com.github.vfyjxf.nee.container.ContainerPatternInterface;
-import com.github.vfyjxf.nee.network.NEENetworkHandler;
-
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

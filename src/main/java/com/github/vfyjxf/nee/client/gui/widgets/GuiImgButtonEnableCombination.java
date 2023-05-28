@@ -7,9 +7,9 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import appeng.client.gui.widgets.ITooltip;
-
 import com.github.vfyjxf.nee.config.ItemCombination;
+
+import appeng.client.gui.widgets.ITooltip;
 
 public class GuiImgButtonEnableCombination extends GuiButton implements ITooltip {
 

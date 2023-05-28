@@ -13,16 +13,15 @@ import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
+import com.google.common.base.Optional;
+
 import appeng.api.AEApi;
 import appeng.api.networking.IGrid;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.IActionHost;
 import appeng.container.AEBaseContainer;
 import appeng.container.ContainerNull;
-
-import com.github.vfyjxf.nee.block.tile.TilePatternInterface;
-import com.google.common.base.Optional;
-
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;

@@ -4,10 +4,10 @@ import java.util.*;
 
 import javax.annotation.Nonnull;
 
+import com.djgiannuzz.thaumcraftneiplugin.items.ItemAspect;
+
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import com.djgiannuzz.thaumcraftneiplugin.items.ItemAspect;
 
 /**
  * @author vfyjxf

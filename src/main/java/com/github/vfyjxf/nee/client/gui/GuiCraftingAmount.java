@@ -6,6 +6,12 @@ import net.minecraft.item.ItemStack;
 import net.p455w0rd.wirelesscraftingterminal.items.ItemEnum;
 import net.p455w0rd.wirelesscraftingterminal.reference.Reference;
 
+import com.github.vfyjxf.nee.container.ContainerCraftingAmount;
+import com.github.vfyjxf.nee.network.NEENetworkHandler;
+import com.github.vfyjxf.nee.network.packet.PacketCraftingRequest;
+import com.github.vfyjxf.nee.utils.GuiUtils;
+import com.github.vfyjxf.nee.utils.ModIDs;
+
 import appeng.api.AEApi;
 import appeng.api.definitions.IDefinitions;
 import appeng.api.definitions.IParts;
@@ -21,13 +27,6 @@ import appeng.core.sync.network.NetworkHandler;
 import appeng.core.sync.packets.PacketSwitchGuis;
 import appeng.helpers.Reflected;
 import appeng.parts.reporting.PartCraftingTerminal;
-
-import com.github.vfyjxf.nee.container.ContainerCraftingAmount;
-import com.github.vfyjxf.nee.network.NEENetworkHandler;
-import com.github.vfyjxf.nee.network.packet.PacketCraftingRequest;
-import com.github.vfyjxf.nee.utils.GuiUtils;
-import com.github.vfyjxf.nee.utils.ModIDs;
-
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 

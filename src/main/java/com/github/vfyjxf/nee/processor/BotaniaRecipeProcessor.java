@@ -7,9 +7,9 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import vazkii.botania.client.integration.nei.recipe.RecipeHandlerLexicaBotania;
 import codechicken.nei.PositionedStack;
 import codechicken.nei.recipe.IRecipeHandler;
+import vazkii.botania.client.integration.nei.recipe.RecipeHandlerLexicaBotania;
 
 public class BotaniaRecipeProcessor implements IRecipeProcessor {
 

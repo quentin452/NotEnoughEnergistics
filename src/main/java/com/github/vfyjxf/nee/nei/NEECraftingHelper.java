@@ -28,6 +28,16 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import org.lwjgl.input.Keyboard;
 
+import com.github.vfyjxf.nee.NotEnoughEnergistics;
+import com.github.vfyjxf.nee.config.NEEConfig;
+import com.github.vfyjxf.nee.network.NEENetworkHandler;
+import com.github.vfyjxf.nee.network.packet.PacketOpenCraftAmount;
+import com.github.vfyjxf.nee.network.packet.PacketValueConfigServer;
+import com.github.vfyjxf.nee.utils.GuiUtils;
+import com.github.vfyjxf.nee.utils.IngredientTracker;
+import com.github.vfyjxf.nee.utils.ItemUtils;
+import com.github.vfyjxf.nee.utils.ModIDs;
+
 import appeng.client.gui.implementations.GuiCraftingTerm;
 import appeng.container.slot.SlotCraftingMatrix;
 import appeng.container.slot.SlotFakeCraftingMatrix;
@@ -42,17 +52,6 @@ import codechicken.nei.PositionedStack;
 import codechicken.nei.api.IOverlayHandler;
 import codechicken.nei.recipe.GuiRecipe;
 import codechicken.nei.recipe.IRecipeHandler;
-
-import com.github.vfyjxf.nee.NotEnoughEnergistics;
-import com.github.vfyjxf.nee.config.NEEConfig;
-import com.github.vfyjxf.nee.network.NEENetworkHandler;
-import com.github.vfyjxf.nee.network.packet.PacketOpenCraftAmount;
-import com.github.vfyjxf.nee.network.packet.PacketValueConfigServer;
-import com.github.vfyjxf.nee.utils.GuiUtils;
-import com.github.vfyjxf.nee.utils.IngredientTracker;
-import com.github.vfyjxf.nee.utils.ItemUtils;
-import com.github.vfyjxf.nee.utils.ModIDs;
-
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.ReflectionHelper;
